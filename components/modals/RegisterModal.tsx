@@ -1,9 +1,10 @@
-import useLoginModal from '@/hooks/useLoginModal';
-import useRegisterModal from '@/hooks/useRegisterModal';
-import { useCallback, useState } from 'react';
+import { use, useCallback, useState } from 'react';
+import axios from 'axios';
 
 import Input from '../Input';
 import Modal from '../Modal';
+import useLoginModal from '@/hooks/useLoginModal';
+import useRegisterModal from '@/hooks/useRegisterModal';
 
 const RegisterModal = () => {
 	const loginModal = useLoginModal();
@@ -18,7 +19,14 @@ const RegisterModal = () => {
 	const onSubmit = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			//TODO: register & login
+			
+			// register user by sending data back to the register route
+			await axios.post(`/api/register`, {
+				email,
+				password,
+				name,
+				username,
+			})
 
 			registerModal.onClose();
 		} catch (error) {
@@ -26,7 +34,7 @@ const RegisterModal = () => {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [registerModal]);
+	}, [registerModal, email, password, name, username]);
 
 	const onToggle = useCallback(() => {
 		// if user clicks register this wont allow the user to switch modals

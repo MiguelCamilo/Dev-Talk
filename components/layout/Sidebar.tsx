@@ -33,7 +33,7 @@ const Sidebar = () => {
 					<SidebarLogo />
 					<Link
 						href={'/'}
-						className="absolute left-20 top-2 hidden text-xl font-black italic text-green-500 lg:block "
+						className="absolute left-20 top-2 hidden text-2xl font-black italic text-green-500 lg:block "
 					>
 						Dev
 						<span className="text-white hover:text-green-500">Link</span>
