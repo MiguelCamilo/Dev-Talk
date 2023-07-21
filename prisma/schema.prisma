@@ -16,55 +16,55 @@ datasource db {
 // reason for two seperate image & profileImage is cause
 // image will be used for next-auth and profileImage can become large
 model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String?
-  usernmae String? @unique
-  bio String?
-  email String? @unique
-  emailVerified DateTime?
-  image String?
-  coverImage String?
-  profileImage String?
-  hashedPassword String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  followingIds String[] @db.ObjectId
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
+  name            String?
+  usernmae        String?   @unique
+  bio             String?
+  email           String?   @unique
+  emailVerified   DateTime?
+  image           String?
+  coverImage      String?
+  profileImage    String?
+  hashedPassword  String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  followingIds    String[]  @db.ObjectId
   hasNotification Boolean?
 
-  posts Post[]
-  comments Comment[]
+  posts         Post[]
+  comments      Comment[]
   notifications Notification[]
 }
 
 // user User @relation is creating a relation with the user model with the posts Post[]
 model Post {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  body String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  body      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userId String @db.ObjectId
-  likedIds String[] @db.ObjectId
+  userId    String   @db.ObjectId
+  likedIds  String[] @db.ObjectId
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   comments Comment[]
 }
 
 model Comment {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  body String
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  body      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userId String @db.ObjectId
-  postId String @db.ObjectId
+  userId    String   @db.ObjectId
+  postId    String   @db.ObjectId
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   post Post @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Notification {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  body String
-  userId String @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  body      String
+  userId    String   @db.ObjectId
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
