@@ -1,5 +1,12 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## TODO:
+- Login & Register Modal Validation
+    - Checks in place for:
+        - User has correct password format
+        - All inputs are being used
+        - Username is taken
+
 ## Getting Started
 
 First, run the development server:

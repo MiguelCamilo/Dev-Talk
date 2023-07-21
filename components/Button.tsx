@@ -1,3 +1,5 @@
+
+//TODO: add type prop
 interface ButtonProps {
 	label: string;
 	secondary?: boolean;

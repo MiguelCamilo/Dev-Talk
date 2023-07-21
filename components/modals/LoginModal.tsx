@@ -1,8 +1,10 @@
-import useLoginModal from '@/hooks/useLoginModal';
+import { signIn } from 'next-auth/react';
+import { toast } from 'react-hot-toast';
 import { useCallback, useState } from 'react';
 
 import Input from '../Input';
 import Modal from '../Modal';
+import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
 
 const LoginModal = () => {
@@ -16,15 +18,21 @@ const LoginModal = () => {
 	const onSubmit = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			//TODO: add login
 
+			await signIn('credentials', {
+				email,
+				password
+			})
+
+			toast.success('Succesfully loged in!')
 			loginModal.onClose();
+
 		} catch (error) {
 			console.log(error);
 		} finally {
 			setIsLoading(false);
 		}
-	}, [loginModal]);
+	}, [loginModal, email, password]);
 
 	const onToggle = useCallback(() => {
 		// if user clicks register this wont allow the user to switch modals
@@ -58,7 +66,7 @@ const LoginModal = () => {
 	const footerContent = (
 		<div className="mt-4 text-center text-neutral-400">
 			<p>
-				First time using DevLinks?
+				First time using DevLink ?
 				<button
 					onClick={onToggle}
 					className="cursor-pointer text-white hover:text-green-400 ml-2"

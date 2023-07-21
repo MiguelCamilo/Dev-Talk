@@ -1,14 +1,18 @@
 import SidebarLogo from '@/components/layout/SidebarLogo';
 import SidebarItem from '@/components/layout/SidebarItem';
 import SidebarPostButton from './SidebarPostButton';
+import useCurrentUser from '@/hooks/useCurrentUser';
 
 import Link from 'next/link';
+import { signOut } from 'next-auth/react';
 
 import { FaUser } from 'react-icons/fa';
 import { BsHouseFill, BsBellFill } from 'react-icons/bs';
 import { BiLogOut } from 'react-icons/bi';
 
 const Sidebar = () => {
+	const { data: currentUser } = useCurrentUser();
+
 	const items = [
 		{
 			label: 'Home',
@@ -19,13 +23,16 @@ const Sidebar = () => {
 			label: 'Notifications',
 			href: '/notifications',
 			icons: BsBellFill,
+			auth: true
 		},
 		{
 			label: 'Profile',
 			href: '/users/123',
 			icons: FaUser,
+			auth: true
 		},
 	];
+
 	return (
 		<div className="col-span-1 h-full pr-4 md:pr-6">
 			<div className="flex flex-col items-end">
@@ -44,9 +51,14 @@ const Sidebar = () => {
 							href={item.href}
 							label={item.label}
 							icon={item.icons}
+							auth={item.auth}
 						/>
 					))}
-					<SidebarItem onClick={() => {}} icon={BiLogOut} label="LogOut" />
+
+					{currentUser && (
+						<SidebarItem onClick={() => signOut()} icon={BiLogOut} label="LogOut" />
+					)}
+
 					<SidebarPostButton />
 				</div>
 			</div>
