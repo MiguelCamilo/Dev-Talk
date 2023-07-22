@@ -9,6 +9,8 @@ const Followbar = () => {
 		return null;
 	}
 
+	//TODO: add an onClick to push to users/userId
+
 	return (
 		<div className="hidden px-6 py-4 lg:block">
 			<div className="rounded-xl bg-neutral-800 p-4">

@@ -23,7 +23,7 @@ const Avatar: React.FC<AvatarProps> = ({ userId, isLarge, hasBorder }) => {
 			// we want this onClick to overide the parent onClick event
 			event.stopPropagation();
 
-			const url = `/user/${userId}`;
+			const url = `/users/${userId}`;
 			router.push(url);
 		},
 		[router, userId],
@@ -45,7 +45,7 @@ const Avatar: React.FC<AvatarProps> = ({ userId, isLarge, hasBorder }) => {
 				}}
 				alt="Avatar"
                 onClick={onClick}
-                src={fetchedUser?.profileImage || '/images/profile.png'}
+                src={fetchedUser?.profileImage || '/img/placeholder.png'}
 			/>
 		</div>
 	);
