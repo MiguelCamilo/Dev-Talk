@@ -10,7 +10,7 @@ export default async function handler(
     }
 
     try {
-        // from the file format being [userId] the userId is retrieved from the query
+        // since the file format is [userId] the userId is retrieved from the query
         // since this is a api route
         const { userId } = req.query 
 
@@ -25,8 +25,15 @@ export default async function handler(
         })
 
         const followersCount = await prisma?.user.count({
-            
+            where: {
+                // find all the users that are following the current user we are searching for
+                 followingIds: {
+                    has: userId
+                 }
+            }
         })
+
+        return res.status(200).json({ ...existingUser, followersCount })
 
     } catch (error) {
         console.log(error)
