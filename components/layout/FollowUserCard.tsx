@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import Avatar from '../Avatar';
 
 import { useRouter } from 'next/router';
@@ -14,21 +15,22 @@ const FollowUserCard: React.FC<FollowUserCardProps> = ({
 	username,
 }) => {
 	const router = useRouter();
-
-	const onClick = (event: any) => {
+	
+	const onClick = useCallback((event: any) => {
 		event.stopPropagation();
-
+		
 		const url = `/users/${userId}`;
 		router.push(url);
-	};
+		
+	}, [userId, router])
 
 	return (
-		<div className="flex flex-row">
+		<div className="flex flex-row gap-2">
 			<Avatar userId={userId} hasBorder />
 			<div className="flex cursor-default flex-col">
 				<p
 					onClick={onClick}
-					className="text-sm font-semibold text-white hover:underline hover:decoration-2"
+					className="text-sm font-semibold text-white hover:underline hover:decoration-2 cursor-pointer"
 				>
 					{name}
 				</p>
