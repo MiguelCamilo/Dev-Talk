@@ -1,5 +1,5 @@
 import useUsers from '@/hooks/useUsers';
-import Avatar from '../Avatar';
+import FollowUserCard from './FollowUserCard';
 
 const Followbar = () => {
 	// get all users and store in an emtpy array from users hook
@@ -9,7 +9,6 @@ const Followbar = () => {
 		return null;
 	}
 
-	//TODO: add an onClick to push to users/userId
 
 	return (
 		<div className="hidden px-6 py-4 lg:block">
@@ -18,15 +17,12 @@ const Followbar = () => {
 				<div className="mt-4 flex flex-col gap-6">
 					{/* MAP THROUGH USER LIST */}
 					{users.map((user: Record<string, any>) => (
-						<p className="flex flex-row gap-4" key={user.id}>
-							<Avatar userId={user.id} hasBorder />
-							<div className="flex cursor-default flex-col">
-								<p className="text-sm font-semibold text-white hover:underline hover:decoration-2">
-									{user.name}
-								</p>
-								<p className="text-sm text-green-400">@ {user.username}</p>
-							</div>
-						</p>
+						<FollowUserCard 
+							key={user.id}
+							userId={user.id}
+							name={user.name}
+							username={user.username}
+						/>
 					))}
 				</div>
 			</div>
