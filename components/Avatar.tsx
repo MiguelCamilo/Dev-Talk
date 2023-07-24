@@ -32,8 +32,8 @@ const Avatar: React.FC<AvatarProps> = ({ userId, isLarge, hasBorder }) => {
 		<div
 			className={`
                 ${hasBorder ? 'border-2 border-green-400' : ''} 
-                ${isLarge ? 'h-32' : 'h-12'}
-                ${isLarge ? 'w-32' : 'w-12'}
+                ${isLarge ? 'h-32 border-4 border-green-400' : 'h-12'}
+                ${isLarge ? 'w-32 border-4 border-green-400' : 'w-12'}
                 relative cursor-pointer rounded-full transition hover:opacity-90 shrink-0
             `}
 		>

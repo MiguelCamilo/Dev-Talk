@@ -1,8 +1,11 @@
 import Header from '@/components/Header';
+import UserHero from '@/components/users/UserHero';
+import UserBio from '@/components/users/UserBio';
 
 import useUser from '@/hooks/useUser';
 
 import { useRouter } from 'next/router';
+import { ClipLoader } from 'react-spinners';
 
 const UserView = () => {
     const router = useRouter()
@@ -10,13 +13,26 @@ const UserView = () => {
     // on the user profile the userId is passed to the url
     const { userId } = router.query
 
+    const { data: fetchedUser, isLoading } = useUser(userId as string)
 
-	// pass current user to label prop
-    // const currentUser = useUser(userId)
+    // if loading or no provided fetched user
+    if(isLoading || !fetchedUser) {
+        return (
+            <div 
+                className='flex justify-center items-center h-full'>
+                    <ClipLoader 
+                        color='lightgreen'
+                        size={80}
+                    />
+            </div>
+        )
+    }
 
 	return (
 		<>
-			<Header showBackArrow label="User Profile" />
+			<Header showBackArrow label={fetchedUser?.name || 'User Profile'} />
+            <UserHero userId={userId as string} />
+            <UserBio userId={userId as string} />
 		</>
 	);
 };

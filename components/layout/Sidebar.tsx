@@ -27,7 +27,7 @@ const Sidebar = () => {
 		},
 		{
 			label: 'Profile',
-			href: '/users/123',
+			href: `/users/${currentUser?.id}`,
 			icons: FaUser,
 			auth: true
 		},
@@ -43,7 +43,7 @@ const Sidebar = () => {
 						className="absolute left-20 top-2 hidden text-2xl font-black italic text-green-500 lg:block "
 					>
 						Dev
-						<span className="text-white hover:text-green-500">Link</span>
+						<span className="text-white hover:text-green-500 delay-150">Link</span>
 					</Link>
 					{items.map((item) => (
 						<SidebarItem

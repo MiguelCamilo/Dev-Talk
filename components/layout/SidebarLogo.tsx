@@ -7,10 +7,9 @@ const SidebarLogo = () => {
 	return (
 		<div
 			onClick={() => router.push('/')}
-			className="flex h-14 w-14 cursor-pointer items-center justify-center rounded-full p-4 mt-1 transition hover:bg-neutral-800"
+			className="mt-1 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full p-4 transition hover:bg-neutral-800"
 		>
-			
-			<AiOutlineCode size={28} className="text-green-400 hover:text-green-500" />
+			<AiOutlineCode size={28} className="text-green-400  hover:text-white" />
 		</div>
 	);
 };
