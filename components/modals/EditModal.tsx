@@ -55,8 +55,12 @@ const EditModal = () => {
 
 			toast.success('Update Succesful!');
 			editModal.onClose();
-		} catch (error) {
-			toast.error('Something went wrong.');
+		} catch (error: any) {
+			if (error.response.status === 413) {
+				toast.error('Image is too large, please upload a different sized image!');
+			} else {
+				toast.error('Something went wrong.');
+			}
 		} finally {
 			setIsLoading(false);
 		}
@@ -75,13 +79,13 @@ const EditModal = () => {
 			<ImageUpload
 				value={profileImage}
 				disabled={isLoading}
-				onChange={(image) => setProfileImage(image)}				
+				onChange={(image) => setProfileImage(image)}
 				label="Upload Profile Image"
 			/>
 			<ImageUpload
 				value={coverImage}
 				disabled={isLoading}
-				onChange={(image) => setCoverImage(image)}				
+				onChange={(image) => setCoverImage(image)}
 				label="Upload Cover Image"
 			/>
 			<Input
@@ -96,12 +100,21 @@ const EditModal = () => {
 				value={username}
 				disabled={isLoading}
 			/>
-			<Input
+			<textarea
+				onChange={(e) => setBio(e.target.value)}
+				value={bio || ''}
+				disabled={isLoading}
+				id="message"
+				rows={4}
+				className="block w-full rounded-lg border border-neutral-800 bg-black p-2.5  text-sm text-white"
+				placeholder="Bio..."
+			/>
+			{/* <input
 				placeholder="Bio"
 				onChange={(e) => setBio(e.target.value)}
 				value={bio || ''}
 				disabled={isLoading}
-			/>
+			/> */}
 		</div>
 	);
 
