@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { ReactEventHandler, useCallback, useEffect, useState } from 'react';
 
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
@@ -55,7 +55,7 @@ const EditModal = () => {
 
 			toast.success('Update Succesful!');
 			editModal.onClose();
-		} catch (error) {            
+		} catch (error) {
 			toast.error('Something went wrong.');
 		} finally {
 			setIsLoading(false);
@@ -70,52 +70,52 @@ const EditModal = () => {
 		mutateFetchedUser,
 	]);
 
-    const bodyContent = (
-        <div className='flex flex-col gap-4'>
-			<ImageUpload 
+	const bodyContent = (
+		<div className="flex flex-col gap-4">
+			<ImageUpload
 				value={profileImage}
 				disabled={isLoading}
-				onChange={image => setProfileImage(image)}
-				label='Upload Profile Image'
+				onChange={(image) => setProfileImage(image)}				
+				label="Upload Profile Image"
 			/>
-			<ImageUpload 
+			<ImageUpload
 				value={coverImage}
 				disabled={isLoading}
-				onChange={image => setCoverImage(image)}
-				label='Upload Cover Image'
+				onChange={(image) => setCoverImage(image)}				
+				label="Upload Cover Image"
 			/>
-            <Input 
-                placeholder='Name'
-                onChange={e => setName(e.target.value)}
-                value={name}
-                disabled={isLoading}
-            />
-            <Input 
-                placeholder='Username'
-                onChange={e => setUserName(e.target.value)}
-                value={username}
-                disabled={isLoading}
-            />
-            <Input 
-                placeholder='Bio'
-                onChange={e => setBio(e.target.value)}
-                value={bio || ''}
-                disabled={isLoading}
-            />
-        </div>
-    )
+			<Input
+				placeholder="Name"
+				onChange={(e) => setName(e.target.value)}
+				value={name}
+				disabled={isLoading}
+			/>
+			<Input
+				placeholder="Username"
+				onChange={(e) => setUserName(e.target.value)}
+				value={username}
+				disabled={isLoading}
+			/>
+			<Input
+				placeholder="Bio"
+				onChange={(e) => setBio(e.target.value)}
+				value={bio || ''}
+				disabled={isLoading}
+			/>
+		</div>
+	);
 
 	return (
-        <Modal
-            title='Edit Profile'
-            actionLabel='Save'
-            body={bodyContent}            
-            onSubmit={onSubmit}
-            onClose={editModal.onClose}
-            isOpen={editModal.isOpen}
-            disabled={isLoading}
-        />
-    )
+		<Modal
+			title="Edit Profile"
+			actionLabel="Save"
+			body={bodyContent}
+			onSubmit={onSubmit}
+			onClose={editModal.onClose}
+			isOpen={editModal.isOpen}
+			disabled={isLoading}
+		/>
+	);
 };
 
 export default EditModal;

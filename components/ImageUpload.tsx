@@ -1,10 +1,92 @@
+import Image from 'next/image';
+import { useCallback, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { AiOutlineClose } from 'react-icons/ai';
 
-const ImageUpload = () => {
-    return ( 
-        <div>
-            
-        </div>
-     );
+interface ImageUploadProps {
+	value?: string;
+	disabled?: boolean;
+	label: string;
+	onChange: (base64: string) => void;
 }
- 
+
+const ImageUpload: React.FC<ImageUploadProps> = ({
+	value,
+	disabled,
+	onChange,
+	label,
+}) => {
+	const [base64, setBase64] = useState(value);
+
+	const handleChange = useCallback(
+		(base64: string) => {
+			onChange(base64);
+		},
+		[onChange],
+	);
+
+	// converts dropped file to base64 then passes data to handleChange funcs
+	const handleDrop = useCallback(
+		(files: any) => {
+			const file = files[0];
+			const reader = new FileReader();
+
+			reader.onload = (event: any) => {
+				setBase64(event.target.result);
+				handleChange(event.target.result);
+			};
+
+			reader.readAsDataURL(file);
+		},
+		[handleChange],
+	);
+
+	const { getRootProps, getInputProps } = useDropzone({
+		maxFiles: 1,
+		onDrop: handleDrop,
+		disabled,
+		accept: {
+			'image/jpeg': [],
+			'image/png': [],
+		},
+	});
+
+	const handleRemove = useCallback(
+		(event: any) => {
+			event.stopPropagation();
+			setBase64('');
+			handleChange('');
+		},
+		[handleChange],
+	);
+
+	return (
+		<div
+			{...getRootProps({
+				className:
+					'relative w-full p-4 text-white text-center border-2 border-dotted rounded-md border-green-600 cursor-pointer hover:border-solid duration-150',
+			})}
+		>
+			<input {...getInputProps()} />
+			{base64 ? (
+				<div className="flex items-center justify-center">
+					<Image src={base64} height="100" width="100" alt="Uploaded Image" />
+				</div>
+			) : (
+				<p className="text-white">{label}</p>
+			)}
+
+			{base64 && (
+				<button onClick={handleRemove}>
+                    {/* <p className='absolute right-2 top-2 text-white hover:bg-neutral-600 rounded-full p-1'>Remove</p> */}
+					<AiOutlineClose
+						size={26}
+						className="absolute right-2 top-2 text-red-600 hover:bg-neutral-800 rounded-full p-1"
+					/>
+				</button>
+			)}
+		</div>
+	);
+};
+
 export default ImageUpload;
