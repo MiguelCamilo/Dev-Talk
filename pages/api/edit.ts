@@ -12,7 +12,7 @@ export default async function handler(
     }
 
     try {
-        const { currentUser } = await serverAuth(req)
+        const { currentUser } = await serverAuth(req, res)
 
         const { name, username, bio, profileImage, coverImage } = req.body
         
@@ -20,7 +20,7 @@ export default async function handler(
             throw new Error('Missing Required Fields')
         }
 
-        const updatedUser = await prisma?.user.update({
+        const updatedUser = await prisma.user.update({
             where: {
                 id: currentUser.id
             }, 

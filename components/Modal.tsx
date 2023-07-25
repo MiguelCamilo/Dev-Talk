@@ -52,9 +52,9 @@ const Modal: React.FC<ModalProps> = ({
 							<h3 className="text-3xl font-semibold text-white">{title}</h3>
 							<button
 								onClick={handleClose}
-								className="ml-auto border-0 p-1 text-white transition hover:opacity-70"
+								className="ml-auto border-0 p-1 text-white transition  hover:opacity-70"
 							>
-								<AiOutlineClose size={20} />
+								<AiOutlineClose size={28} className='hover:bg-neutral-700 hover:rounded-full p-1' />
 							</button>
 						</div>
 
@@ -70,7 +70,7 @@ const Modal: React.FC<ModalProps> = ({
 								fullWidth
 								large
 							/>
-                            {footer}
+							{footer}
 						</div>
 					</div>
 				</div>

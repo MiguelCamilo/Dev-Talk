@@ -44,7 +44,7 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
 				{currentUser?.id === userId ? (
 					<Button secondary label="Edit" onClick={handleEditClick} />
 				) : (
-					<Button onClick={handleEditClick} label="Follow" secondary />
+					<Button onClick={() => {}} label="Follow" secondary />
 				)}
 			</div>
 			<div className="mt-8 px-4">
