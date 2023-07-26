@@ -1,7 +1,8 @@
 import useUser from '@/hooks/useUser';
 import useCurrentUser from '@/hooks/useCurrentUser';
-import useEditModal from '@/hooks/useEditModal'
-import useLoginModal from '@/hooks/useLoginModal';
+import useEditModal from '@/hooks/useEditModal';
+import useFollowersModal from '@/hooks/useFollowersModal';
+import useFollow from '@/hooks/useFollow';
 
 import Button from '../Button';
 
@@ -17,17 +18,10 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
 	const { data: fetchedUser } = useUser(userId);
 	const { data: currentUser } = useCurrentUser();
 
-	const editModal = useEditModal()
-	const loginModal = useLoginModal()
+	const editModal = useEditModal();
+	const followersModal = useFollowersModal();
 
-	const handleEditClick = useCallback(() => {
-		if(!currentUser) {
-			loginModal.onOpen()
-		}
-
-		editModal.onOpen()
-
-	}, [editModal, loginModal, currentUser])
+	const { isFollowing, toggleFollow } = useFollow(userId);
 
 	// useMemo will run only if the dependencies has changed
 	const createdAt = useMemo(() => {
@@ -38,13 +32,22 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
 		return format(new Date(fetchedUser.createdAt), 'MMMM yyyy');
 	}, [fetchedUser?.createdAt]);
 
+	// const openFollowingModal = useCallback(() => {
+
+	// }, [])
+
 	return (
 		<div className="border-b-[1px] border-neutral-800 pb-4">
 			<div className="flex justify-end p-2">
 				{currentUser?.id === userId ? (
-					<Button secondary label="Edit" onClick={handleEditClick} />
+					<Button secondary label="Edit" onClick={editModal.onOpen} />
 				) : (
-					<Button onClick={() => {}} label="Follow" secondary />
+					<Button
+						onClick={toggleFollow}
+						label={isFollowing ? 'Unfollow' : 'Follow'}
+						secondary={!isFollowing}
+						outline={isFollowing}
+					/>
 				)}
 			</div>
 			<div className="mt-8 px-4">
@@ -66,21 +69,20 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
 					</div>
 				</div>
 
-                <div className='flex flex-row items-center mt-4 gap-6'>
-                    <div className='flex flex-row items-center gap-1'>
-                        <p className='text-white'>
-                            {fetchedUser?.followingIds.length}                            
-                        </p>
-                        <p className='text-neutral-500'>Following</p>
-                    </div>
+				<div className="mt-4 flex flex-row items-center gap-6">
+					<div className="flex flex-row items-center gap-1">
+						<p className="text-white">{fetchedUser?.followingIds.length}</p>
+						<p className="text-neutral-500">Following</p>
+					</div>
 
-                    <div className='flex flex-row items-center gap-1'>
-                        <p className='text-white'>
-                            {fetchedUser?.followersCount || 0}                            
-                        </p>
-                        <p className='text-neutral-500'>Followers</p>
-                    </div>
-                </div>
+					<div
+						onClick={followersModal.onOpen}
+						className="flex cursor-pointer flex-row items-center gap-1"
+					>
+						<p className="text-white hover:text-green-400">{fetchedUser?.followersCount || 0}</p>
+						<p className="text-neutral-500 hover:text-green-400">Followers</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	);

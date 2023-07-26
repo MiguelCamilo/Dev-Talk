@@ -32,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
             disabled:cursor-not-allowed
             disabled:opacity-70
             ${fullWidth ? 'w-full' : 'w-fit'}
-            ${secondary ? 'bg-green-500' : 'bg-white'}
+            ${secondary ? 'bg-green-500' : 'bg-black'}
             ${secondary ? 'text-white' : 'text-black'}
             ${secondary ? 'border-green-500' : 'border-black'}
             ${large ? 'text-lg' : 'text-md'}

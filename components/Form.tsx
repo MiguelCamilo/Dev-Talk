@@ -69,7 +69,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
 			) : (
 				<div className="py-8">
 					<h1 className="mb-4 text-center text-2xl font-bold text-white">
-						Welcome to DevLink
+						Welcome to <span className='text-green-400 font-black italic'>Dev</span><span className='font-black italic'>Link</span>!
 					</h1>
 
 					<div className="flex flex-col items-center justify-center gap-4">

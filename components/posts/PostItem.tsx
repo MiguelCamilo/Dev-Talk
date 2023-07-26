@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { AiOutlineMessage } from 'react-icons/ai';
+import { AiOutlineHeart, AiFillHeart, AiOutlineMessage } from 'react-icons/ai';
 import { useCallback, useMemo } from 'react';
 import { formatDistanceToNowStrict } from 'date-fns';
 
@@ -51,7 +51,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
 	return (
 		<div
 			onClick={goToPost}
-			className="cursor-pointer border-l border-green-600 hover:bg-neutral-800 p-5 transition"
+			className="cursor-pointer border-l border-green-600 p-5 transition hover:bg-neutral-800"
 		>
 			<div className="flex flex-row items-start gap-3">
 				<Avatar userId={data.user.id} />
@@ -69,16 +69,27 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
 						<span className="text-xs text-neutral-500">{createdAt}</span>
 					</div>
 
-                    <div className='text-white text-sm mt-1'>
-                        {data.body}
-                    </div>
+					<div className="mt-1 text-sm text-white">{data.body}</div>
 
-                    <div className='flex flex-row items-center mt-3 gap-10'>
-                        <div className='flex flex-row items-center text-neutral-500 gap-2 cursor-pointer transition hover:text-green-400'>
-                            <AiOutlineMessage size={20} />
-                        </div>
-                    </div>
-                    
+					<div className="mt-3 flex flex-row items-center gap-10">
+						<div className="flex cursor-pointer flex-row items-center gap-1 text-neutral-500 transition hover:text-green-400">
+							<AiOutlineMessage
+								size={36}
+								className="rounded-full hover:bg-green-800 hover:bg-opacity-30 p-2"
+							/>
+
+							<p>{data.comments?.length || 0}</p>
+						</div>
+
+						<div onClick={onLike} className="flex cursor-pointer flex-row items-center gap-1 text-neutral-500 transition hover:text-rose-600">
+							<AiOutlineHeart
+								size={36}
+								className="rounded-full hover:bg-rose-800 hover:bg-opacity-30 p-2"
+							/>
+
+							<p>{data.likedIds?.length || 0}</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
