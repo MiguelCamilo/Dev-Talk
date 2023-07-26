@@ -10,6 +10,7 @@ import useLoginModal from './useLoginModal';
 const useFollow = (userId: string) => {
 	const { mutate: mutateFetchedUser } = useUser(userId);
 	const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
+	
 	const loginModal = useLoginModal();
 
 	const isFollowing = useMemo(() => {

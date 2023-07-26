@@ -4,18 +4,18 @@ import Modal from '../Modal';
 import Avatar from '../Avatar';
 
 import useUser from '@/hooks/useUser';
-import useFollowersModal from '@/hooks/useFollowersModal';
+import useFollowingModal from '@/hooks/useFollowingModal';
 
-const FollowersModal = ({  }) => {
+const FollowingModal = ({  }) => {
     const router = useRouter()
     const { userId } = router.query
     const { data: fetchedUser } = useUser(userId as string)
-    const followersModal = useFollowersModal()
+    const followingModal = useFollowingModal()
 
 	const bodyContent = (
 		<div className="flex flex-col text-gray-400">
 			<div className="mb-5 flex -space-x-4">
-				{fetchedUser?.followerIds
+				{fetchedUser?.followingIds
 					?.slice(-4)
 					.map((friendId: any) => (
 						<Avatar key={friendId} userId={friendId} hasBorder />
@@ -25,14 +25,14 @@ const FollowersModal = ({  }) => {
 	);
 	return (
         <Modal 
-            title="Followers" 
+            title="Following" 
             body={bodyContent} 
-            onClose={followersModal.onClose}
-            isOpen={followersModal.isOpen}
+            onClose={followingModal.onClose}
+            isOpen={followingModal.isOpen}
             onSubmit={() => {}}
             actionLabel=''
         />
     )
 };
 
-export default FollowersModal;
+export default FollowingModal;

@@ -3,6 +3,7 @@ import LoginModal from '@/components/modals/LoginModal';
 import RegisterModal from '@/components/modals/RegisterModal';
 import EditModal from '@/components/modals/EditModal';
 import FollowersModal from '@/components/modals/FollowersModal';
+import FollowingModal from '@/components/modals/FollowingModal';
 
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			<RegisterModal />
 			<EditModal />
 			<FollowersModal />
+			<FollowingModal />
 			<Layout>
 				<Component {...pageProps} />
 			</Layout>

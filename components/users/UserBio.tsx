@@ -1,13 +1,15 @@
 import useUser from '@/hooks/useUser';
+import useFollow from '@/hooks/useFollow';
 import useCurrentUser from '@/hooks/useCurrentUser';
+
 import useEditModal from '@/hooks/useEditModal';
 import useFollowersModal from '@/hooks/useFollowersModal';
-import useFollow from '@/hooks/useFollow';
+import useFollowingModal from '@/hooks/useFollowingModal';
 
 import Button from '../Button';
 
 import { format } from 'date-fns';
-import { useCallback, useMemo } from 'react';
+import { useMemo } from 'react';
 import { BiCalendar } from 'react-icons/bi';
 
 interface UserBioProps {
@@ -20,6 +22,7 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
 
 	const editModal = useEditModal();
 	const followersModal = useFollowersModal();
+	const followingModal = useFollowingModal()
 
 	const { isFollowing, toggleFollow } = useFollow(userId);
 
@@ -31,10 +34,6 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
 
 		return format(new Date(fetchedUser.createdAt), 'MMMM yyyy');
 	}, [fetchedUser?.createdAt]);
-
-	// const openFollowingModal = useCallback(() => {
-
-	// }, [])
 
 	return (
 		<div className="border-b-[1px] border-neutral-800 pb-4">
@@ -70,9 +69,9 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
 				</div>
 
 				<div className="mt-4 flex flex-row items-center gap-6">
-					<div className="flex flex-row items-center gap-1">
-						<p className="text-white">{fetchedUser?.followingIds.length}</p>
-						<p className="text-neutral-500">Following</p>
+					<div onClick={followingModal.onOpen} className="flex flex-row items-center gap-1">
+						<p className="text-white hover:text-green-400">{fetchedUser?.followingIds.length}</p>
+						<p className="text-neutral-500 hover:text-green-400">Following</p>
 					</div>
 
 					<div

@@ -61,8 +61,9 @@ const Modal: React.FC<ModalProps> = ({
 						{/* body */}
 						<div className="relative flex-auto p-10">{body}</div>
 						{/* footer */}
-						<div className="flex flex-col gap-2 p-10">
-							<Button
+						<div className="flex flex-col gap-2 px-5 mb-20">
+							{actionLabel ? (
+								<Button
 								onClick={handleSubmit}
 								disabled={disabled}
 								label={actionLabel}
@@ -70,6 +71,10 @@ const Modal: React.FC<ModalProps> = ({
 								fullWidth
 								large
 							/>
+							) : (
+								null
+							)
+						}
 							{footer}
 						</div>
 					</div>

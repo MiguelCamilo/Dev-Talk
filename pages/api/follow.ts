@@ -30,13 +30,16 @@ export default async function handler(
         }
 
         let updatedFollowingIds = [...(currentUser.followingIds || [] )]
+        let updatedFollowerIds = [...(user.followerIds || [])];
 
         if(req.method === 'POST') {
             updatedFollowingIds.push(userId)
+            updatedFollowerIds.push(currentUser.id)
         }
 
         if(req.method === 'DELETE') {
             updatedFollowingIds = updatedFollowingIds.filter((followingId) => followingId !== userId)
+            updatedFollowerIds = updatedFollowerIds.filter((followerId) => followerId !== currentUser.id);
         }
 
         const updatedUser = await prisma.user.update({
@@ -47,6 +50,15 @@ export default async function handler(
                 followingIds: updatedFollowingIds 
             }
         })
+
+        await prisma.user.update({
+            where: {
+              id: userId,
+            },
+            data: {
+              followerIds: updatedFollowerIds,
+            },
+          });
 
         return res.status(200).json(updatedUser)
         
