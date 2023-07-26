@@ -60,7 +60,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
 							placeholder={placeholder}
 						/>
                         <p className='text-neutral-500 absolute top-10 right-0'>{body.length}</p>
-						<hr className="h-[1px] border-neutral-800 opacity-0 transition peer-focus:opacity-100" />
+						<hr className="h-[1px] border-neutral-800 transition opacity-100" />
                         <div className='mt-4 flex flex-row justify-end'>
                             <Button label='Share' disabled={isLoading || !body} onClick={onSubmit} secondary/>
                         </div>
@@ -69,7 +69,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
 			) : (
 				<div className="py-8">
 					<h1 className="mb-4 text-center text-2xl font-bold text-white">
-						Welcome to <span className='text-green-400 font-black italic'>Dev</span><span className='font-black italic'>Link</span>!
+						Welcome to <span className='text-green-400 font-black italic'>Dev</span><span className='font-black italic'>Link</span>
 					</h1>
 
 					<div className="flex flex-col items-center justify-center gap-4">

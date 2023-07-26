@@ -13,13 +13,6 @@ const FollowersModal = ({}) => {
 	const { data: fetchedUser } = useUser(userId as string);
 	const followersModal = useFollowersModal();
 
-	// if () {
-	// 	return (
-	// <div className="flex h-full items-center justify-center">
-	// 	<ClipLoader color="lightgreen" size={80} />
-	// </div>
-	// 	);
-	// }
 
 	const bodyContent = (
 		<div className="flex flex-col text-gray-400">
