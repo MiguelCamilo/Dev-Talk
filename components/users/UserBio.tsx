@@ -22,7 +22,7 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
 
 	const editModal = useEditModal();
 	const followersModal = useFollowersModal();
-	const followingModal = useFollowingModal()
+	const followingModal = useFollowingModal();
 
 	const { isFollowing, toggleFollow } = useFollow(userId);
 
@@ -69,8 +69,13 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
 				</div>
 
 				<div className="mt-4 flex flex-row items-center gap-6">
-					<div onClick={followingModal.onOpen} className="flex flex-row items-center gap-1">
-						<p className="text-white hover:text-green-400">{fetchedUser?.followingIds.length}</p>
+					<div
+						onClick={followingModal.onOpen}
+						className="flex cursor-pointer flex-row items-center gap-1"
+					>
+						<p className="text-white hover:text-green-400">
+							{fetchedUser?.followingIds.length}
+						</p>
 						<p className="text-neutral-500 hover:text-green-400">Following</p>
 					</div>
 
@@ -78,7 +83,9 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
 						onClick={followersModal.onOpen}
 						className="flex cursor-pointer flex-row items-center gap-1"
 					>
-						<p className="text-white hover:text-green-400">{fetchedUser?.followersCount || 0}</p>
+						<p className="text-white hover:text-green-400">
+							{fetchedUser?.followersCount || 0}
+						</p>
 						<p className="text-neutral-500 hover:text-green-400">Followers</p>
 					</div>
 				</div>

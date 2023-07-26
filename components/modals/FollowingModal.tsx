@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 
 import Modal from '../Modal';
-import Avatar from '../Avatar';
+import UserCard from '../users/UserCard';
 
 import useUser from '@/hooks/useUser';
 import useFollowingModal from '@/hooks/useFollowingModal';
@@ -18,7 +18,10 @@ const FollowingModal = ({  }) => {
 				{fetchedUser?.followingIds
 					?.slice(-4)
 					.map((friendId: any) => (
-						<Avatar key={friendId} userId={friendId} hasBorder />
+						<UserCard 
+                            key={friendId}
+                            userId={friendId}
+                        />
 					))}
 			</div>
 		</div>

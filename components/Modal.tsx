@@ -42,7 +42,7 @@ const Modal: React.FC<ModalProps> = ({
 
 	return (
 		<>
-			<div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-neutral-900 bg-opacity-70 outline-none focus:outline-none">
+			<div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-auto bg-neutral-900 bg-opacity-70 outline-none focus:outline-none">
 				{/* makes the modal responsive */}
 				<div className="relative mx-auto my-6 h-full w-full lg:h-auto lg:w-3/6 lg:max-w-3xl">
 					{/* content */}
@@ -59,7 +59,7 @@ const Modal: React.FC<ModalProps> = ({
 						</div>
 
 						{/* body */}
-						<div className="relative flex-auto p-10">{body}</div>
+						<div className="relative flex-auto px-10 py-2">{body}</div>
 						{/* footer */}
 						<div className="flex flex-col gap-2 px-5 mb-20">
 							{actionLabel ? (
