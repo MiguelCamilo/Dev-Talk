@@ -57,7 +57,7 @@ const EditModal = () => {
 			editModal.onClose();
 		} catch (error: any) {
 			if (error.response.status === 413) {
-				toast.error('Image is too large, please upload a different sized image!');
+				toast.error('Image is too large. Upload an image under 2mbs in size.');
 			} else {
 				toast.error('Something went wrong.');
 			}
@@ -105,16 +105,10 @@ const EditModal = () => {
 				value={bio || ''}
 				disabled={isLoading}
 				id="message"
-				rows={4}
+				rows={6}
 				className="block w-full rounded-lg border border-neutral-800 bg-black p-2.5  text-sm text-white"
 				placeholder="Bio..."
 			/>
-			{/* <input
-				placeholder="Bio"
-				onChange={(e) => setBio(e.target.value)}
-				value={bio || ''}
-				disabled={isLoading}
-			/> */}
 		</div>
 	);
 
