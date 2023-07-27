@@ -18,24 +18,24 @@ export default async function handler(
             throw new Error('Inavlid ID')
         }
 
+        // including the user of the post and the post comments
+        // the comments will include the user
         const post = await prisma.post.findUnique({
-            where: {
-                id: postId
-            },
-            // including the user of the post and the post comments
-            include: {
+          where: {
+            id: postId,
+          },
+          include: {
+            user: true,
+            comments: {
+              include: {
                 user: true,
-                // the comments will include the user
-                comments: {
-                    include: {
-                        user: true
-                    },
-                    orderBy: {
-                        createdAt: 'desc'
-                    }
-                }
-            }
-        })
+              },
+              orderBy: {
+                createdAt: "desc",
+              },
+            },
+          },
+        });
 
         return res.status(200).json(post)
         

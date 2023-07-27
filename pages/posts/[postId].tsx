@@ -3,6 +3,7 @@ import { ClipLoader } from 'react-spinners';
 
 import Header from '@/components/Header';
 import PostItem from '@/components/posts/PostItem';
+import CommentFeed from '@/components/posts/CommentFeed';
 
 import usePost from '@/hooks/usePost';
 import Form from '@/components/Form';
@@ -31,6 +32,7 @@ const PostView = () => {
                 isComment
                 placeholder='Share your reply'
             />
+            <CommentFeed comments={fetchedPost?.comments} />
         </>
      );
 }
