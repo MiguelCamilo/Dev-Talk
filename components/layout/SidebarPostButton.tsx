@@ -1,19 +1,29 @@
 import { useCallback } from 'react';
-import { FaComment } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
 
 import useLoginModal from '@/hooks/useLoginModal';
+import { useRouter } from 'next/router';
+import useCurrentUser from '@/hooks/useCurrentUser';
 
 const SidebarPostButton = () => {
+	const router = useRouter()
+	
+	const { data: currentUser } = useCurrentUser();
 	const loginModal = useLoginModal();
 
+	//! TODO: ADD FORM POST MODAL 
 	const onClick = useCallback(() => {
-		loginModal.onOpen();
-	}, [loginModal]);
+		if(!currentUser) {
+			return loginModal.onOpen();
+		}
+
+		router.push('/')
+	}, [loginModal, currentUser, router]);
 
 	return (
 		<div onClick={onClick}>
-			<div className="ml-2 mt-6 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-green-500 transition hover:bg-opacity-80 lg:hidden">
-				<FaComment color="white" />
+			<div className="ml-3 mt-6 flex p-3 cursor-pointer items-center justify-center rounded-full bg-green-500 transition hover:bg-opacity-80 lg:hidden">
+				<FaEdit color="white" size={20} />
 			</div>
 
 			{/* desktop view */}

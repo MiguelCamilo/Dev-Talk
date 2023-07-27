@@ -3,6 +3,7 @@ import { AiOutlineHeart, AiFillHeart, AiOutlineMessage } from 'react-icons/ai';
 import { useCallback, useMemo } from 'react';
 import { formatDistanceToNowStrict } from 'date-fns';
 
+import useLike from '@/hooks/useLike';
 import useLoginModal from '@/hooks/useLoginModal';
 import useCurrentUser from '@/hooks/useCurrentUser';
 
@@ -13,18 +14,21 @@ interface PostItemProps {
 	data: Record<string, any>;
 }
 
-const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
+const PostItem: React.FC<PostItemProps> = ({ userId, data = {} }) => {
 	const router = useRouter();
+
 	const loginModal = useLoginModal();
+
+	const { hasLiked, toggleLike } = useLike({ postId: data.id, userId });
 	const { data: currentUser } = useCurrentUser();
 
 	const goToUser = useCallback(
 		(event: any) => {
 			event.stopPropagation();
 
-			router.push(`/users/${data.user.id}`);
+			router.push(`/users/${data.user?.id}`);
 		},
-		[router, data.user.id],
+		[router, data.user?.id],
 	);
 
 	const goToPost = useCallback(() => {
@@ -34,10 +38,13 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
 	const onLike = useCallback(
 		(event: any) => {
 			event.stopPropagation();
+			if (!currentUser) {
+				return loginModal.onOpen();
+			}
 
-			loginModal.onOpen();
+			toggleLike();
 		},
-		[loginModal],
+		[loginModal, currentUser, toggleLike],
 	);
 
 	const createdAt = useMemo(() => {
@@ -48,6 +55,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
 		return formatDistanceToNowStrict(new Date(data.createdAt));
 	}, [data?.createdAt]);
 
+	const LikeIcon = hasLiked ? AiFillHeart : AiOutlineHeart;
 	return (
 		<div
 			onClick={goToPost}
@@ -75,19 +83,27 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data }) => {
 						<div className="flex cursor-pointer flex-row items-center gap-1 text-neutral-500 transition hover:text-green-400">
 							<AiOutlineMessage
 								size={36}
-								className="rounded-full hover:bg-green-800 hover:bg-opacity-30 p-2"
+								className="rounded-full p-2 hover:bg-green-800 hover:bg-opacity-30"
 							/>
-
+							{/* //! TODO: FIX LENGTH OF COMMENTS NOT SHOWING  */}
 							<p>{data.comments?.length || 0}</p>
 						</div>
 
-						<div onClick={onLike} className="flex cursor-pointer flex-row items-center gap-1 text-neutral-500 transition hover:text-rose-600">
-							<AiOutlineHeart
+						<div
+							onClick={onLike}
+							className="flex cursor-pointer flex-row items-center gap-1 text-neutral-500 transition hover:text-rose-600"
+						>
+							<LikeIcon
 								size={36}
-								className="rounded-full hover:bg-rose-800 hover:bg-opacity-30 p-2"
+								className={`${
+									hasLiked
+										? 'rounded-full p-2 text-rose-600 hover:bg-rose-800 hover:bg-opacity-30'
+										: 'rounded-full p-2 hover:bg-rose-800 hover:bg-opacity-30'
+								}`}
 							/>
-
-							<p>{data.likedIds?.length || 0}</p>
+							<p className={`${hasLiked && 'text-rose-600' }`}>
+								{data.likedIds?.length || 0}
+							</p>
 						</div>
 					</div>
 				</div>

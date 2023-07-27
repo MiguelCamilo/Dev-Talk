@@ -15,8 +15,8 @@ const UserCard: React.FC<UserCardProps> = ({ userId }) => {
 	const router = useRouter();
 	const { data: fetchedUser } = useUser(userId);
 
-    const followersModal = useFollowersModal()
-    const followingModal = useFollowingModal()
+	const followersModal = useFollowersModal();
+	const followingModal = useFollowingModal();
 
 	const onClick = useCallback(
 		(event: any) => {
@@ -25,11 +25,11 @@ const UserCard: React.FC<UserCardProps> = ({ userId }) => {
 			const url = `/users/${userId}`;
 			router.push(url);
 
-            if(followersModal.isOpen) {
-                followersModal.onClose()
-            } else if(followingModal.isOpen) {
-                followingModal.onClose()
-            }
+			if (followersModal.isOpen) {
+				return followersModal.onClose();
+			} else if (followingModal.isOpen) {
+				return followingModal.onClose();
+			}
 		},
 		[userId, router, followersModal, followingModal],
 	);
@@ -37,7 +37,7 @@ const UserCard: React.FC<UserCardProps> = ({ userId }) => {
 	return (
 		<div
 			onClick={onClick}
-			className="mx-8 flex cursor-pointer flex-col items-center gap-2 rounded-md border-2 border-neutral-800 p-4 hover:border-green-600 transition duration-200"
+			className="mx-8 flex cursor-pointer flex-col items-center gap-2 rounded-md border-2 border-neutral-800 p-4 transition duration-200 hover:border-green-600"
 		>
 			<div className="">
 				<Avatar userId={userId} hasBorder />

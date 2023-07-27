@@ -26,7 +26,7 @@ const PostView = () => {
         <>
             <Header label='Post' showBackArrow />
             <PostItem data={fetchedPost} />
-            <Form  
+            <Form
                 postId={postId as string}
                 isComment
                 placeholder='Share your reply'

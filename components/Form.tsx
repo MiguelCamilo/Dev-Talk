@@ -30,7 +30,11 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
 		try {
 			setIsLoading(true);
 
-			await axios.post('/api/posts', { body });
+			// if isComment then it will create a comment to a post by id
+			// else just create a post
+			const url = isComment ? `/api/comments?postId=${postId}` : `/api/posts`
+
+			await axios.post(url, { body });
 			toast.success('You post was sent.');
 
 			setBody('');
@@ -40,7 +44,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
 		} finally {
 			setIsLoading(false);
 		}
-	}, [body, mutatePosts]);
+	}, [body, mutatePosts, isComment, postId]);
 
 
 	return (

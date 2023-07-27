@@ -42,7 +42,7 @@ const Modal: React.FC<ModalProps> = ({
 
 	return (
 		<>
-			<div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-auto bg-neutral-900 bg-opacity-70 outline-none focus:outline-none">
+			<div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-auto bg-neutral-900 backdrop-blur-sm bg-opacity-70 outline-none focus:outline-none">
 				{/* makes the modal responsive */}
 				<div className="relative mx-auto my-6 h-full w-full lg:h-auto lg:w-3/6 lg:max-w-3xl">
 					{/* content */}
