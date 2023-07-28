@@ -72,7 +72,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data = {} }) => {
 							onClick={goToUser}
 							className="hidden cursor-pointer text-sm text-neutral-500 hover:text-green-600 md:block"
 						>
-							@{data.user.username}
+							@{data.user?.username}
 						</span>
 						<span className="text-xs text-neutral-500">{createdAt}</span>
 					</div>
