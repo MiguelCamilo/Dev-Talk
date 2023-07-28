@@ -36,6 +36,41 @@ export default async function handler(
         if(req.method === 'POST') {
             // pushing the currentUserId that liked the post
             updatedLikedIds.push(currentUser.id)
+            
+            // reason for this being in a try catch block
+            // is because of there is an error this shouldnt break the like api route
+
+            //! NOTIFICATION BLOCK
+            // allow for like notifications
+            try {
+                const post = await prisma.post.findUnique({
+                    where: {
+                        id: postId
+                    }
+                })
+
+                if(post?.userId) {
+                    await prisma.notification.create({
+                        data: {
+                            body: 'Someone liked your tweet!',
+                            userId: post.userId
+                        }
+                    })
+
+                    await prisma.user.update({
+                        where: {
+                            id: post.userId
+                        },
+                        data: {
+                            hasNotification: true
+                        }
+                    })
+                }
+
+            } catch (error) {
+                console.log(error)
+            }
+            //! NOTIFICATION BLOCK
         }
 
         if(req.method === 'DELETE') {
