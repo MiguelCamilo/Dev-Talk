@@ -35,15 +35,16 @@ const useFollow = (userId: string) => {
 							userId,
 						},
 					});
+					toast.success('User Unfollowed.')
 			} else {
 				request = () => axios.post(`/api/follow`, { userId });
+				toast.success('User Followed.')
 			}
 
 			await request();
 			mutateCurrentUser();
 			mutateFetchedUser();
-
-			toast.success('Success');
+			
 		} catch (error) {
 			console.log(error);
 			toast.error('Unable to follow user, try again');

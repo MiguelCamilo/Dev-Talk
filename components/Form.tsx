@@ -10,6 +10,7 @@ import Avatar from './Avatar';
 
 import toast from 'react-hot-toast';
 import axios from 'axios';
+import usePost from '@/hooks/usePost';
 
 interface FormProps {
 	placeholder: string;
@@ -22,6 +23,7 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
 	const loginModal = useLoginModal();
 	const { data: currentUser } = useCurrentUser();
 	const { mutate: mutatePosts } = usePosts();
+	const { mutate: mutatePost } = usePost(postId as string)
 
 	const [body, setBody] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
@@ -35,16 +37,20 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
 			const url = isComment ? `/api/comments?postId=${postId}` : `/api/posts`
 
 			await axios.post(url, { body });
-			toast.success('You post was sent.');
+			toast.success('You post was sent.', {
+				duration: 3000,
+				position: 'bottom-center'
+			});
 
 			setBody('');
 			mutatePosts();
+			mutatePost();
 		} catch (error) {
 			toast.error('Something went wrong.');
 		} finally {
 			setIsLoading(false);
 		}
-	}, [body, mutatePosts, isComment, postId]);
+	}, [body, mutatePosts, mutatePost, isComment, postId]);
 
 
 	return (

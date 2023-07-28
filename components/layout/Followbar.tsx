@@ -8,8 +8,9 @@ const Followbar = () => {
 	const { data: users = [] } = useUsers();
 	const { data: currentUser } = useCurrentUser()
 
+	//! TODO REMOVE USER THAT THE CURRENT USER IS FOLLOWING 
 	// filter out currentUser from the list
-	const filteredUsers = users.filter((user: { id: any; }) => user.id !== currentUser?.id )
+	const filteredUsers = users.filter((user: { id: any; }) => user.id !== currentUser?.id)
 
 	if (users.length === 0) {
 		return null;

@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-    @apply h-full bg-black cursor-default
+    @apply h-full bg-[#16181c] cursor-default
 }
 
 body {
-    @apply h-full bg-black
+    @apply h-full bg-[#16181c]
 }

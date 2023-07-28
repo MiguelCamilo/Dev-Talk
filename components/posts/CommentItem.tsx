@@ -32,23 +32,23 @@ const CommentItem: React.FC<CommentItemProps> = ({ data }) => {
 		<div className="cursor-pointer border-b-[1px] border-neutral-800 p-5 transition hover:bg-neutral-800">
 			<div className="flex flex-row items-start gap-3">
 				<Avatar userId={data.user?.id} />
-
-				<div className="flex flex-row items-center gap-2">
-					<p
-						onClick={goToUser}
-						className="cursor-pointer font-semibold text-white hover:underline"
-					>
-						{data.user?.name}
-					</p>
-					<span className="hidden cursor-pointer text-neutral-500 hover:text-green-500 md:block">
-						@{data.user?.username}
-					</span>
-					<span className="text-sm text-neutral-500">{createdAt}</span>
+				<div>
+					<div className="flex flex-row items-center gap-2">
+						<p
+							onClick={goToUser}
+							className="cursor-pointer font-semibold text-white hover:underline"
+						>
+							{data.user?.name}
+						</p>
+						<span className="hidden cursor-pointer text-neutral-500 hover:text-green-500 md:block">
+							@{data.user?.username}
+						</span>
+						<span className="text-sm text-neutral-500">{createdAt}</span>
+					</div>
+					<div className="flex flex-col">
+						<div className="mt-1 text-sm text-white">{data?.body}</div>
+					</div>
 				</div>
-			</div>
-            {/* //! TODO: FLEX COLUMN THIS   */}
-			<div className="flex flex-col">
-				<div className="mt-1 text-white">{data?.body}</div>
 			</div>
 		</div>
 	);
