@@ -9,6 +9,7 @@ import { signOut } from 'next-auth/react';
 import { FaUser } from 'react-icons/fa';
 import { BsHouseFill, BsBellFill } from 'react-icons/bs';
 import { BiLogOut } from 'react-icons/bi';
+import { MdFeedback } from 'react-icons/md'
 
 const Sidebar = () => {
 	const { data: currentUser } = useCurrentUser();
@@ -31,6 +32,11 @@ const Sidebar = () => {
 			href: `/users/${currentUser?.id}`,
 			icons: FaUser,
 			auth: true
+		},
+		{
+			label: 'Feedback',
+			href: '/feedback',
+			icons: MdFeedback,
 		},
 	];
 

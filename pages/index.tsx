@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Header from '@/components/Header'
 import Form from '@/components/Form'
 import PostFeed from '@/components/posts/PostFeed'
@@ -5,6 +6,11 @@ import PostFeed from '@/components/posts/PostFeed'
 export default function Home() {
   return (
     <>
+      {/* head tag */}
+      <Head>
+      <title>DevLink</title>
+      <meta name='description' content='DevLink a community of developers!' />
+      </Head>
       <Header label='Home' />
       <Form placeholder="What's on your mind?" />
       <PostFeed />

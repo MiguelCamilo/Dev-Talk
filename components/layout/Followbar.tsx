@@ -18,8 +18,8 @@ const Followbar = () => {
 
 
 	return (
-		<div className="hidden px-6 py-4 lg:block">
-			<div className="rounded-xl bg-neutral-800 p-4">
+		<div className="hidden px-8 py-4 lg:block">
+			<div className="rounded-xl bg-neutral-800 p-6">
 				<h2 className="text-xl font-semibold text-white">Who to follow</h2>
 				<div className="mt-4 flex flex-col gap-6">
 					{/* MAP THROUGH USER LIST */}
