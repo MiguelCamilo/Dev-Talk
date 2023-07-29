@@ -22,7 +22,7 @@ const FollowingModal = ({}) => {
 				{fetchedUser?.followerIds?.length === 0 ? (
 					<div className="flex h-full items-center justify-center">
 						{userId === currentUser?.id ? (
-							<p>You're currently not following anyone.</p>
+							<p>You are currently not following anyone.</p>
 						) : (
 							<p className="text-white text-center">
 								@{fetchedUser?.username} is not following anyone.
