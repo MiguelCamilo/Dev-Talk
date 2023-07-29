@@ -1,0 +1,13 @@
+{
+    "builds": [
+      {
+        "src": "prisma/schema.prisma",
+        "use": "@prisma/cli",
+        "config": { "command": "prisma generate" } 
+      },
+      {
+        "src": "next.config.js",
+        "use": "@vercel/next"
+      }
+    ]
+  }
