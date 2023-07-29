@@ -13,7 +13,7 @@ const FollowingModal = ({}) => {
 	const { userId } = router.query;
 	const { data: fetchedUser } = useUser(userId as string);
 	const { data: currentUser } = useCurrentUser();
-    
+
 	const followingModal = useFollowingModal();
 
 	const bodyContent = (
@@ -24,7 +24,7 @@ const FollowingModal = ({}) => {
 						{userId === currentUser?.id ? (
 							<p>You're currently not following anyone.</p>
 						) : (
-							<p className="tex-white text-center">
+							<p className="text-white text-center">
 								@{fetchedUser?.username} is not following anyone.
 							</p>
 						)}
