@@ -37,6 +37,7 @@ const Sidebar = () => {
 			label: 'Feedback',
 			href: '/feedback',
 			icons: MdFeedback,
+			auth: true
 		},
 	];
 

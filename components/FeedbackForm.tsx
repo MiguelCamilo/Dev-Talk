@@ -101,7 +101,7 @@ const FeedbackForm = () => {
 									type="submit"
 									className="inline-block w-full rounded-lg bg-green-500 px-5 py-3 font-medium text-white sm:w-auto"
 								>
-									Send Enquiry
+									Send Feedback
 								</button>
 							</div>
 						</form>

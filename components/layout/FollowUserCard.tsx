@@ -49,8 +49,8 @@ const FollowUserCard: React.FC<FollowUserCardProps> = ({
 					onClick={toggleFollow}
 					className={`${
 						!isFollowing
-							? 'relative -right-[10rem] shrink rounded-lg border border-green-600 px-[1.2rem] py-1 text-center text-green-400 hover:bg-green-600 hover:text-white focus:outline-none focus:ring-green-300'
-							: 'relative -right-[10rem] shrink rounded-lg border border-red-500 px-3 py-1 text-center text-red-400 hover:bg-red-500 hover:text-white focus:outline-none focus:ring-red-600'
+							? 'relative -right-[12rem] shrink rounded-lg border border-green-600 px-[1.2rem] py-1 text-center text-green-400 hover:bg-green-600 hover:text-white focus:outline-none focus:ring-green-300'
+							: 'relative -right-[12rem] shrink rounded-lg border border-red-500 px-3 py-1 text-center text-red-400 hover:bg-red-500 hover:text-white focus:outline-none focus:ring-red-600'
 					}`}
 				>
 					{isFollowing ? (
