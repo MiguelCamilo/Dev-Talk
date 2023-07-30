@@ -56,6 +56,7 @@ export default async function handler(
                             userId: post.userId
                         }
                     })
+                    
 
                     await prisma.user.update({
                         where: {
