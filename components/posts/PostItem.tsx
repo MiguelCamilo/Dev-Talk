@@ -15,6 +15,11 @@ interface PostItemProps {
 }
 
 const PostItem: React.FC<PostItemProps> = ({ userId, data = {} }) => {
+
+	//! TODO: ADD EYE VIEW ICON, CHECK FOR EACH TIME POST HAS BEEN CLICKED
+
+	//! TODO: CREATE A DELETE QUERY FOR POST CREATOR
+
 	const router = useRouter();
 
 	const loginModal = useLoginModal();
@@ -84,8 +89,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data = {} }) => {
 							<AiOutlineMessage
 								size={36}
 								className="rounded-full p-2 hover:bg-green-800 hover:bg-opacity-30"
-							/>
-							{/* //! TODO: FIX LENGTH OF COMMENTS NOT SHOWING  */}
+							/>							
 							<p>{data.comments?.length || 0}</p>
 						</div>
 
