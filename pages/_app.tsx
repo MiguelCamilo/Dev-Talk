@@ -5,6 +5,8 @@ import EditModal from '@/components/modals/EditModal';
 import FollowersModal from '@/components/modals/FollowersModal';
 import FollowingModal from '@/components/modals/FollowingModal';
 
+import { Analytics } from '@vercel/analytics/react'
+
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import { Toaster } from 'react-hot-toast';
@@ -21,6 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
 			<FollowingModal />
 			<Layout>
 				<Component {...pageProps} />
+				<Analytics />
 			</Layout>
 		</SessionProvider>
 	);

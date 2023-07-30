@@ -23,7 +23,7 @@ const RegisterModal = () => {
 			setIsLoading(true);
 			
 			if (!email || !password || !username || !username) {
-				return toast.error('Please fill out required fields.', { id: 'login' });
+				return toast.error('Please fill out required fields.', { id: 'register' });
 		   }
 
 			// register user by sending data back to the register route
