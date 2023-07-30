@@ -13,7 +13,6 @@ DevLink allowed me to learn how implement:
 - Many To Many Relations (Post - Comment)
 - Following functionality
 - Comments / Replies
-- Likes functionality
 
 ### Prerequisites
 
