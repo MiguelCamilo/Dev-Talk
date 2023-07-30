@@ -18,7 +18,7 @@ const Sidebar = () => {
 		{
 			label: 'Home',
 			href: '/',
-			icons: BsHouseFill,
+			icons: BsHouseFill
 		},
 		{
 			label: 'Notifications',
@@ -36,8 +36,7 @@ const Sidebar = () => {
 		{
 			label: 'Feedback',
 			href: '/feedback',
-			icons: MdFeedback,
-			auth: true
+			icons: MdFeedback
 		},
 	];
 

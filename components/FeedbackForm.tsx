@@ -3,8 +3,6 @@ import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
-import env from '@/libs/env';
-
 const FeedbackForm = () => {
 	//! REFACTOR THIS CODE
 	//? Formik
@@ -17,10 +15,11 @@ const FeedbackForm = () => {
 
 		axios
 			.post(
-				env.API,
+				process.env.NEXT_PUBLIC_GETFORM_API as string,
 				{
 					name: name,
 					email: email,
+					message: message,
 					location: 'DevLink'
 				},
 				{ headers: { Accept: 'application/json' } },

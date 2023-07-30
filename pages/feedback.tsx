@@ -4,24 +4,24 @@ import { getSession } from 'next-auth/react';
 import Header from '@/components/Header';
 import FeedbackForm from '@/components/FeedbackForm';
 
-export async function getServerSideProps(context: NextPageContext) {
+// export async function getServerSideProps(context: NextPageContext) {
 
-	const session = await getSession(context);
+// 	const session = await getSession(context);
 
-	if (!session) {
-		return {
-			redirect: {
-				destination: '/',
-				permanent: false,
-			},
-		};
-	}
-	return {
-		props: {
-			session,
-		},
-	};
-}
+// 	if (!session) {
+// 		return {
+// 			redirect: {
+// 				destination: '/',
+// 				permanent: false,
+// 			},
+// 		};
+// 	}
+// 	return {
+// 		props: {
+// 			session,
+// 		},
+// 	};
+// }
 
 const Feedback = () => {
 	return (
