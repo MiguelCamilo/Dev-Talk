@@ -3,6 +3,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
+import env from '@/libs/env';
+
 const FeedbackForm = () => {
 	//! REFACTOR THIS CODE
 	//? Formik
@@ -15,10 +17,9 @@ const FeedbackForm = () => {
 
 		axios
 			.post(
-				'https://getform.io/f/b712b844-23b5-4a25-921c-79d5c5421090',
+				env.API,
 				{
 					name: name,
-					message: message,
 					email: email,
 					location: 'DevLink'
 				},
