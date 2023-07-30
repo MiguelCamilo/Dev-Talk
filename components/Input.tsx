@@ -15,6 +15,7 @@ const Input: React.FC<InputProps> = ({
 }) => {
 	return (
 		<input
+			required
 			disabled={disabled}
 			onChange={onChange}
 			value={value}

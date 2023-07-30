@@ -13,6 +13,10 @@ export default async function handler(
     try {
         const { email, username, name, password } = req.body
 
+        if(!email || !password) {
+            return res.status(400).send({ message: 'Please fill out required fields.'})
+        }
+
         const hashedPassword = await bcrypt.hash(password, 12)
 
         // creates user and stores user data in the user const

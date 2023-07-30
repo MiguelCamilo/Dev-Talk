@@ -8,7 +8,7 @@ import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
 
 const LoginModal = () => {
-	const registerModal = useRegisterModal()
+	const registerModal = useRegisterModal();
 	const loginModal = useLoginModal();
 
 	const [email, setEmail] = useState('');
@@ -19,14 +19,17 @@ const LoginModal = () => {
 		try {
 			setIsLoading(true);
 
+			if (!email || !password) {
+				 return toast.error('Please fill out required fields.', { id: 'login' });
+			}
+
 			await signIn('credentials', {
 				email,
-				password
-			})
+				password,
+			});
 
-			toast.success('Succesfully loged in!')
+			toast.success('Succesfully loged in!', { id: 'login' });
 			loginModal.onClose();
-
 		} catch (error) {
 			console.log(error);
 		} finally {
@@ -69,7 +72,7 @@ const LoginModal = () => {
 				First time using DevLink ?
 				<button
 					onClick={onToggle}
-					className="cursor-pointer text-white hover:text-green-400 ml-2"
+					className="ml-2 cursor-pointer text-white hover:text-green-400"
 				>
 					Create an account
 				</button>
@@ -81,10 +84,10 @@ const LoginModal = () => {
 		<Modal
 			title="Login"
 			actionLabel="Sign in"
-            body={bodyContent}
+			body={bodyContent}
 			footer={footerContent}
 			disabled={isLoading}
-            isOpen={loginModal.isOpen}
+			isOpen={loginModal.isOpen}
 			onClose={loginModal.onClose}
 			onSubmit={onSubmit}
 		/>

@@ -22,6 +22,10 @@ const RegisterModal = () => {
 		try {
 			setIsLoading(true);
 			
+			if (!email || !password || !username || !username) {
+				return toast.error('Please fill out required fields.', { id: 'login' });
+		   }
+
 			// register user by sending data back to the register route
 			await axios.post(`/api/register`, {
 				email,
@@ -38,9 +42,9 @@ const RegisterModal = () => {
 			})
 			registerModal.onClose();
 			
-		} catch (error) {
-			console.log(error);
-			toast.error('Oops, something went wrong.')
+		} catch (error: any) {
+			// console.log(error);
+			toast.error(error.response.data.message, { id: 'message' })
 		} finally {
 			setIsLoading(false);
 		}
