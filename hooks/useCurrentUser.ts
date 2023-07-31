@@ -6,7 +6,12 @@ const useCurrentUser = () => {
     // then caches it and won't refetch if data exist
     const { data, error, isLoading, mutate } = useSWR('/api/currentuser', fetcher)
 
-    return { data, error, isLoading, mutate }
+    return { 
+        data, 
+        error, 
+        isLoading, 
+        mutate 
+    }
 }
 
 export default useCurrentUser
