@@ -41,7 +41,7 @@ NEXTAUTH_SECRET=
 
 ### Start the app
 ```shell
-npm run dev && prisma generate
+npm run build && prisma generate
 ```
  *(delete prisma generate if deploying somewhere other than vercel)*
 
