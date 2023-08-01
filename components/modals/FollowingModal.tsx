@@ -19,7 +19,7 @@ const FollowingModal = ({}) => {
 	const bodyContent = (
 		<div className="flex flex-col text-gray-400">
 			<div className="mb-5 flex -space-x-4">
-				{fetchedUser?.followerIds?.length === 0 ? (
+				{fetchedUser?.followingIds?.length === 0 ? (
 					<div className="flex h-full items-center justify-center">
 						{userId === currentUser?.id ? (
 							<p>You are currently not following anyone.</p>
@@ -30,7 +30,7 @@ const FollowingModal = ({}) => {
 						)}
 					</div>
 				) : (
-					fetchedUser?.followerIds
+					fetchedUser?.followingIds
 						?.slice(-4)
 						.map((friendId: any) => (
 							<UserCard key={friendId} userId={friendId} />
