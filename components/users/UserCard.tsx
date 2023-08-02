@@ -42,7 +42,7 @@ const UserCard: React.FC<UserCardProps> = ({ userId }) => {
 			<div className="">
 				<Avatar userId={userId} hasBorder />
 			</div>
-			<div className="flex cursor-default flex-col">
+			<div className="flex cursor-default flex-col text-center">
 				<p className="text-sm font-semibold text-white">{fetchedUser?.name}</p>
 				<p className="text-sm text-green-400">@{fetchedUser?.username}</p>
 			</div>

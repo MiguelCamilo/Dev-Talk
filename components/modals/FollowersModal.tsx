@@ -19,7 +19,7 @@ const FollowersModal = ({}) => {
 
 	const bodyContent = (
 		<div className="flex flex-col text-gray-400">
-			<div className="mb-5 flex -space-x-4">
+			<div className="grid-col-3 grid gap-3 overflow-y-auto h-[35rem] lg:h-[20rem]">
 				{fetchedUser?.followerIds?.length === 0 ? (
 					<div className="flex h-full items-center justify-center">
 						{userId === currentUser?.id ? (
