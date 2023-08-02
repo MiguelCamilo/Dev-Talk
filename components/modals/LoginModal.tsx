@@ -6,6 +6,7 @@ import Input from '../Input';
 import Modal from '../Modal';
 import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
+import Button from '../Button';
 
 const LoginModal = () => {
 	const registerModal = useRegisterModal();
@@ -20,7 +21,7 @@ const LoginModal = () => {
 			setIsLoading(true);
 
 			if (!email || !password) {
-				 return toast.error('Please fill out required fields.', { id: 'login' });
+				return toast.error('Please fill out required fields.', { id: 'login' });
 			}
 
 			await signIn('credentials', {
@@ -48,22 +49,36 @@ const LoginModal = () => {
 	}, [registerModal, loginModal, isLoading]);
 
 	const bodyContent = (
-		<div className="flex flex-col gap-4">
-			<Input
-				placeholder="Email"
-				type="email"
-				value={email}
-				onChange={(e) => setEmail(e.target.value)}
-				disabled={isLoading}
-			/>
-			<Input
-				placeholder="Password"
-				type="password"
-				value={password}
-				onChange={(e) => setPassword(e.target.value)}
-				disabled={isLoading}
-			/>
-		</div>
+		<form onSubmit={onSubmit}>
+			<div className="flex flex-col gap-4">
+				<Input
+					placeholder="Email"
+					type="email"
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+					disabled={isLoading}
+				/>
+				<Input
+					placeholder="Password"
+					type="password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					disabled={isLoading}
+				/>
+			</div>
+
+			<div className="mt-5">
+				<Button
+					type="submit"
+					onClick={onSubmit}
+					disabled={isLoading}
+					label="Login"
+					secondary
+					fullWidth
+					large
+				/>
+			</div>
+		</form>
 	);
 
 	const footerContent = (
@@ -83,13 +98,12 @@ const LoginModal = () => {
 	return (
 		<Modal
 			title="Login"
-			actionLabel="Sign in"
 			body={bodyContent}
 			footer={footerContent}
 			disabled={isLoading}
 			isOpen={loginModal.isOpen}
 			onClose={loginModal.onClose}
-			onSubmit={onSubmit}
+			onSubmit={() => {}}
 		/>
 	);
 };

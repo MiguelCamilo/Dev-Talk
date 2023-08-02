@@ -1,5 +1,6 @@
 
-//TODO: add type prop
+type ButtonType = 'button' | 'submit'
+
 interface ButtonProps {
 	label: string;
 	secondary?: boolean;
@@ -8,6 +9,7 @@ interface ButtonProps {
 	onClick: () => void;
 	disabled?: boolean;
 	outline?: boolean;
+	type?: ButtonType;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -18,9 +20,11 @@ const Button: React.FC<ButtonProps> = ({
 	onClick,
 	disabled,
 	outline,
+	type
 }) => {
 	return (
 		<button
+			type={type}
 			disabled={disabled}
 			onClick={onClick}
 			className={`

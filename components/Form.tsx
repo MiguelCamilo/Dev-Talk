@@ -85,12 +85,14 @@ const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
 					<div className="flex flex-col items-center justify-center gap-4">
 						<Button
 							label="Login"
+							type='submit'
 							onClick={loginModal.onOpen}
 							secondary
 							fullWidth
 						/>
 						<Button
 							label="Register"
+							type='submit'
 							onClick={registerModal.onOpen}
 							fullWidth
 							secondary

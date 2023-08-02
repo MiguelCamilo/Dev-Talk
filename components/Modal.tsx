@@ -10,7 +10,7 @@ interface ModalProps {
 	title?: string;
 	body?: React.ReactElement;
 	footer?: React.ReactElement;
-	actionLabel: string;
+	actionLabel?: string;
 	disabled?: boolean;
 }
 
@@ -64,6 +64,7 @@ const Modal: React.FC<ModalProps> = ({
 						<div className="flex flex-col gap-2 px-5 mb-20">
 							{actionLabel ? (
 								<Button
+								type='submit'
 								onClick={handleSubmit}
 								disabled={disabled}
 								label={actionLabel}
