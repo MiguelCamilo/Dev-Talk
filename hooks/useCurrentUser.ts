@@ -13,5 +13,4 @@ const useCurrentUser = () => {
         mutate 
     }
 }
-
 export default useCurrentUser
