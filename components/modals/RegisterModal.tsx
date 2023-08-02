@@ -17,7 +17,7 @@ const RegisterModal = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [name, setName] = useState('');
-	const [username, setUsername] = useState('');
+	const [username, setUsername] = useState(''); //! TODO: LIMIT CHAR FOR USERNAME
 	const [isLoading, setIsLoading] = useState(false);
 
 	const onSubmit = useCallback(async () => {

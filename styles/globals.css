@@ -9,3 +9,23 @@
 body {
     @apply h-full bg-[#16181c]
 }
+
+/* width */
+::-webkit-scrollbar {
+    @apply w-[10px]
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    @apply bg-black border border-neutral-400
+}
+  
+/* Handle */
+::-webkit-scrollbar-thumb {
+    @apply bg-neutral-500 rounded-md
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-green-600 transition duration-200
+}
