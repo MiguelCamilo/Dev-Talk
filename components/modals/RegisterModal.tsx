@@ -5,6 +5,8 @@ import { useCallback, useState } from 'react';
 
 import Input from '../Input';
 import Modal from '../Modal';
+import Button from '../Button';
+
 import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
 
@@ -15,16 +17,18 @@ const RegisterModal = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [name, setName] = useState('');
-	const [username, setUsername] = useState('');
+	const [username, setUsername] = useState(''); //! TODO: LIMIT CHAR FOR USERNAME
 	const [isLoading, setIsLoading] = useState(false);
 
 	const onSubmit = useCallback(async () => {
 		try {
 			setIsLoading(true);
-			
+
 			if (!email || !password || !username || !username) {
-				return toast.error('Please fill out required fields.', { id: 'register' });
-		   }
+				return toast.error('Please fill out required fields.', {
+					id: 'register',
+				});
+			}
 
 			// register user by sending data back to the register route
 			await axios.post(`/api/register`, {
@@ -32,19 +36,18 @@ const RegisterModal = () => {
 				password,
 				name,
 				username,
-			})
+			});
 
-			toast.success('Account Created Succesfully!')
+			toast.success('Account Created Succesfully!');
 
 			signIn('credentials', {
 				email,
-				password
-			})
+				password,
+			});
 			registerModal.onClose();
-			
 		} catch (error: any) {
 			// console.log(error);
-			toast.error(error.response.data.message, { id: 'message' })
+			toast.error(error.response.data.message, { id: 'message' });
 		} finally {
 			setIsLoading(false);
 		}
@@ -61,36 +64,50 @@ const RegisterModal = () => {
 	}, [registerModal, loginModal, isLoading]);
 
 	const bodyContent = (
-		<div className="flex flex-col gap-4">
-			<Input
-				placeholder="Email"
-				type="email"
-				value={email}
-				onChange={(e) => setEmail(e.target.value)}
-				disabled={isLoading}
-			/>
-			<Input
-				placeholder="Name"
-				type="text"
-				value={name}
-				onChange={(e) => setName(e.target.value)}
-				disabled={isLoading}
-			/>
-			<Input
-				placeholder="Username"
-				type="text"
-				value={username}
-				onChange={(e) => setUsername(e.target.value)}
-				disabled={isLoading}
-			/>
-			<Input
-				placeholder="Password"
-				type="password"
-				value={password}
-				onChange={(e) => setPassword(e.target.value)}
-				disabled={isLoading}
-			/>
-		</div>
+		<form onSubmit={onSubmit}>
+			<div className="flex flex-col gap-4">
+				<Input
+					placeholder="Email"
+					type="email"
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+					disabled={isLoading}
+				/>
+				<Input
+					placeholder="Name"
+					type="text"
+					value={name}
+					onChange={(e) => setName(e.target.value)}
+					disabled={isLoading}
+				/>
+				<Input
+					placeholder="Username"
+					type="text"
+					value={username}
+					onChange={(e) => setUsername(e.target.value)}
+					disabled={isLoading}
+				/>
+				<Input
+					placeholder="Password"
+					type="password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					disabled={isLoading}
+				/>
+			</div>
+
+			<div className="mt-5">
+				<Button
+					type="submit"
+					onClick={onSubmit}
+					disabled={isLoading}
+					label="Register"
+					secondary
+					fullWidth
+					large
+				/>
+			</div>
+		</form>
 	);
 
 	const footerContent = (
@@ -99,7 +116,7 @@ const RegisterModal = () => {
 				Already have an account?
 				<button
 					onClick={onToggle}
-					className="cursor-pointer text-white hover:text-green-400 ml-2"
+					className="ml-2 cursor-pointer text-white hover:text-green-400"
 				>
 					Login
 				</button>
@@ -110,13 +127,11 @@ const RegisterModal = () => {
 	return (
 		<Modal
 			title="Create an Account"
-			actionLabel="Register"
 			body={bodyContent}
 			footer={footerContent}
-			disabled={isLoading}
 			isOpen={registerModal.isOpen}
 			onClose={registerModal.onClose}
-			onSubmit={onSubmit}
+			onSubmit={() => {}}
 		/>
 	);
 };

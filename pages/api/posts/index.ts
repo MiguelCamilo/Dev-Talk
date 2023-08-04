@@ -33,7 +33,7 @@ export default async function handler(
 
 			if (userId && typeof userId === 'string') {
                 // return post depending if the userId is provided
-                // if on profile page load post by userId
+                // if on profile page then load post by userId
 				posts = await prisma.post.findMany({
 					where: {
 						userId,
