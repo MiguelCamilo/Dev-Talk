@@ -6,7 +6,7 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse,
 ) {
-    if(req.method !== 'GET') {
+    if(req.method !== 'GET' && req.method !== 'DELETE') {
         return res.status(405).end()
     }
 
@@ -16,6 +16,14 @@ export default async function handler(
 
         if(!postId || typeof postId !== 'string') {
             throw new Error('Inavlid ID')
+        }
+
+        if(req.method === 'DELETE') {
+          await prisma.post.delete({
+            where: {
+                id: postId
+            }
+        })
         }
 
         // including the user of the post and the post comments
