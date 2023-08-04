@@ -21,6 +21,7 @@ interface FormProps {
 const Form: React.FC<FormProps> = ({ placeholder, isComment, postId }) => {
 	const registerModal = useRegisterModal();
 	const loginModal = useLoginModal();
+	
 	const { data: currentUser } = useCurrentUser();
 	const { mutate: mutatePosts } = usePosts();
 	const { mutate: mutatePost } = usePost(postId as string)
