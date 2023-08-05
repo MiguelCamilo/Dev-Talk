@@ -34,6 +34,7 @@ export const validateUsername = (username: string) => {
 			style: { background: 'red', color: 'white', fontSize: 'small'},
 		});
 	}
+	
 
     if(username.includes(' ')) {
         return toast.error('Username has a space, try again', {
