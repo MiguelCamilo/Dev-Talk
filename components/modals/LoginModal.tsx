@@ -8,6 +8,8 @@ import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
 import Button from '../Button';
 
+import { validatePassword } from '@/libs/validate';
+
 const LoginModal = () => {
 	const registerModal = useRegisterModal();
 	const loginModal = useLoginModal();
@@ -16,18 +18,28 @@ const LoginModal = () => {
 	const [password, setPassword] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
-	const onSubmit = useCallback(async () => {
+	const onSubmit = useCallback(async (event: any) => {
+		event.preventDefault()
 		try {
 			setIsLoading(true);
-
+			
 			if (!email || !password) {
-				return toast.error('Please fill out required fields.', { id: 'login' });
+				return toast.error('Please fill out required fields.', { 
+					id: 'login',
+					style: { background: 'red', color: 'white', fontSize: 'small'},
+				});
 			}
 
-			await signIn('credentials', {
-				email,
-				password,
-			});
+			if(validatePassword(password)) return
+
+			try {
+				await signIn('credentials', {
+					email,
+					password,
+				});
+			} catch (error) {
+				toast.error('Inavlid Credentials')
+			}
 
 			toast.success('Succesfully loged in!', { id: 'login' });
 			loginModal.onClose();
