@@ -3,6 +3,9 @@ import { toast } from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
 import { useCallback, useState } from 'react';
 
+import { validatePassword } from '@/libs/validate';
+import { validateUsername } from '@/libs/validate';
+
 import Input from '../Input';
 import Modal from '../Modal';
 import Button from '../Button';
@@ -17,18 +20,26 @@ const RegisterModal = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [name, setName] = useState('');
-	const [username, setUsername] = useState(''); //! TODO: LIMIT CHAR FOR USERNAME
+	const [username, setUsername] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
-	const onSubmit = useCallback(async () => {
+	const onSubmit = useCallback(async (event: any) => {
+		event.preventDefault()
 		try {
 			setIsLoading(true);
 
-			if (!email || !password || !username || !username) {
+			if (!email || !password || !name || !username) {
 				return toast.error('Please fill out required fields.', {
 					id: 'register',
+					style: { background: 'red', color: 'white', fontSize: 'small'},
 				});
 			}
+
+			const passwordError = validatePassword(password);
+			const usernameError = validateUsername(username);
+
+			if(passwordError) return;
+			if(usernameError) return;
 
 			// register user by sending data back to the register route
 			await axios.post(`/api/register`, {

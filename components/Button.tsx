@@ -6,7 +6,7 @@ interface ButtonProps {
 	secondary?: boolean;
 	fullWidth?: boolean;
 	large?: boolean;
-	onClick: () => void;
+	onClick: (event: React.MouseEvent<HTMLButtonElement>) => void; // since the function has as property
 	disabled?: boolean;
 	outline?: boolean;
 	type?: ButtonType;
