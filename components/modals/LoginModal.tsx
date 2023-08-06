@@ -1,4 +1,4 @@
-import { signIn } from 'next-auth/react';
+import { SignInResponse, signIn } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 import { useCallback, useState } from 'react';
 
@@ -33,12 +33,23 @@ const LoginModal = () => {
 			if(validatePassword(password)) return
 
 			try {
-				await signIn('credentials', {
+				// type for next signIn
+				const result: SignInResponse | undefined = await signIn('credentials', {
+					redirect: false,
 					email,
 					password,
 				});
+
+				if (result?.status === 401) {
+					toast.error('The email/password you entered is incorrect', {
+						id: 'invalid-credentials',
+						style: { background: 'red', color: 'white', fontSize: 'small'},
+					})
+				  }
+
+				return result
 			} catch (error) {
-				toast.error('Inavlid Credentials')
+				toast.error('Inavalid Credentials')
 			}
 
 			toast.success('Succesfully loged in!', { id: 'login' });
