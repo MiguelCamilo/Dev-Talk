@@ -18,48 +18,57 @@ const LoginModal = () => {
 	const [password, setPassword] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
-	const onSubmit = useCallback(async (event: any) => {
-		event.preventDefault()
-		try {
-			setIsLoading(true);
-			
-			if (!email || !password) {
-				return toast.error('Please fill out required fields.', { 
-					id: 'login',
-					style: { background: 'red', color: 'white', fontSize: 'small'},
-				});
-			}
-
-			if(validatePassword(password)) return
-
+	const onSubmit = useCallback(
+		async (event: any) => {
+			event.preventDefault();
 			try {
-				// type for next signIn
-				const result: SignInResponse | undefined = await signIn('credentials', {
-					redirect: false,
-					email,
-					password,
-				});
+				setIsLoading(true);
 
-				if (result?.status === 401) {
-					toast.error('The email/password you entered is incorrect', {
-						id: 'invalid-credentials',
-						style: { background: 'red', color: 'white', fontSize: 'small'},
-					})
-				  }
+				if (!email || !password) {
+					return toast.error('Please fill out required fields.', {
+						id: 'login',
+						style: { background: 'red', color: 'white', fontSize: 'small' },
+					});
+				}
 
-				return result
+				if (validatePassword(password)) return;
+
+				try {
+					// type for nextauth signIn
+					const result: SignInResponse | undefined = await signIn(
+						'credentials',
+						{
+							redirect: false,
+							email,
+							password,
+						},
+					);
+
+					if (result?.status === 401) {
+						toast.error('The email/password you entered is incorrect', {
+							id: 'invalid-credentials',
+							style: { background: 'red', color: 'white', fontSize: 'small' },
+						});
+					}
+
+					toast.success('Succesfully loged in!', { 
+						id: 'login',
+						style: { background: '#16a34a', color: 'white', fontSize: 'small' },
+					});
+					loginModal.onClose();
+					return result;
+					
+				} catch (error) {
+					toast.error('Inavalid Credentials');
+				}
 			} catch (error) {
-				toast.error('Inavalid Credentials')
+				console.log(error);
+			} finally {
+				setIsLoading(false);
 			}
-
-			toast.success('Succesfully loged in!', { id: 'login' });
-			loginModal.onClose();
-		} catch (error) {
-			console.log(error);
-		} finally {
-			setIsLoading(false);
-		}
-	}, [loginModal, email, password]);
+		},
+		[loginModal, email, password],
+	);
 
 	const onToggle = useCallback(() => {
 		// if user clicks register this wont allow the user to switch modals

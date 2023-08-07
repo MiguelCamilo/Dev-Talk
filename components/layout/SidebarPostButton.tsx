@@ -1,9 +1,11 @@
 import { useCallback } from 'react';
+import { useRouter } from 'next/router';
 import { FaEdit } from 'react-icons/fa';
 
 import useLoginModal from '@/hooks/useLoginModal';
-import { useRouter } from 'next/router';
 import useCurrentUser from '@/hooks/useCurrentUser';
+
+import Modal from '../Modal';
 
 const SidebarPostButton = () => {
 	const router = useRouter()
@@ -37,3 +39,4 @@ const SidebarPostButton = () => {
 };
 
 export default SidebarPostButton;
+ 
