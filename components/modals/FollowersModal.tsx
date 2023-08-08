@@ -16,10 +16,9 @@ const FollowersModal = ({}) => {
 
 	const followersModal = useFollowersModal();
 
-
 	const bodyContent = (
 		<div className="flex flex-col text-gray-400">
-			<div className="grid-col-3 grid gap-3 overflow-y-auto h-[35rem] lg:h-[20rem]">
+			<div className="grid-col-3 grid h-[35rem] gap-3 overflow-y-auto lg:h-[20rem]">
 				{fetchedUser?.followerIds?.length === 0 ? (
 					<div className="flex h-full items-center justify-center">
 						{userId === currentUser?.id ? (
@@ -31,11 +30,9 @@ const FollowersModal = ({}) => {
 						)}
 					</div>
 				) : (
-					fetchedUser?.followerIds
-						?.slice(-4)
-						.map((friendId: any) => (
-							<UserCard key={friendId} userId={friendId} />
-						))
+					fetchedUser?.followerIds?.map((friendId: any) => (
+						<UserCard key={friendId} userId={friendId} />
+					))
 				)}
 			</div>
 		</div>

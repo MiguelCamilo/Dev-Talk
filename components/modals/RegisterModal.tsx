@@ -3,8 +3,11 @@ import { toast } from 'react-hot-toast';
 import { signIn } from 'next-auth/react';
 import { useCallback, useState } from 'react';
 
-import { validatePassword } from '@/libs/validate';
-import { validateUsername } from '@/libs/validate';
+import {
+	validatePassword,
+	validateName,
+	validateUsername,
+} from '@/libs/validate';
 
 import Input from '../Input';
 import Modal from '../Modal';
@@ -23,46 +26,53 @@ const RegisterModal = () => {
 	const [username, setUsername] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 
-	const onSubmit = useCallback(async (event: any) => {
-		event.preventDefault()
-		try {
-			setIsLoading(true);
+	const onSubmit = useCallback(
+		async (event: any) => {
+			event.preventDefault();
+			try {
+				setIsLoading(true);
 
-			if (!email || !password || !name || !username) {
-				return toast.error('Please fill out required fields.', {
-					id: 'register',
-					style: { background: 'red', color: 'white', fontSize: 'small'},
+				if (!email || !password || !name || !username) {
+					return toast.error('Please fill out required fields.', {
+						id: 'register',
+						style: { background: 'red', color: 'white', fontSize: 'small' },
+					});
+				}
+
+				const passwordError = validatePassword(password);
+				const usernameError = validateUsername(username);
+				const nameError = validateName(name);
+
+				if (passwordError) return;
+				if (usernameError) return;
+				if (nameError) return;
+
+				// register user by sending data back to the register route
+				await axios.post(`/api/register`, {
+					email,
+					password,
+					name,
+					username,
 				});
+
+				toast.success('Account Created Succesfully!');
+
+				signIn('credentials', {
+					email,
+					password,
+				});
+				registerModal.onClose();
+			} catch (error: any) {
+				toast.error(error.response.data.message, {
+					id: 'message',
+					style: { background: 'red', color: 'white', fontSize: 'small' },
+				});
+			} finally {
+				setIsLoading(false);
 			}
-
-			const passwordError = validatePassword(password);
-			const usernameError = validateUsername(username);
-
-			if(passwordError) return;
-			if(usernameError) return;
-
-			// register user by sending data back to the register route
-			await axios.post(`/api/register`, {
-				email,
-				password,
-				name,
-				username,
-			});
-
-			toast.success('Account Created Succesfully!');
-
-			signIn('credentials', {
-				email,
-				password,
-			});
-			registerModal.onClose();
-		} catch (error: any) {
-			// console.log(error);
-			toast.error(error.response.data.message, { id: 'message' });
-		} finally {
-			setIsLoading(false);
-		}
-	}, [registerModal, email, password, name, username]);
+		},
+		[registerModal, email, password, name, username],
+	);
 
 	const onToggle = useCallback(() => {
 		// if user clicks register this wont allow the user to switch modals

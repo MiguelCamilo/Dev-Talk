@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 
+import { validateName, validateUsername } from '@/libs/validate';
 import useCurrentUser from '@/hooks/useCurrentUser';
 import useEditModal from '@/hooks/useEditModal';
 import useUser from '@/hooks/useUser';
@@ -42,6 +43,12 @@ const EditModal = () => {
 		try {
 			setIsLoading(true);
 
+			const usernameError = validateUsername(username);
+			const nameError = validateName(name);
+
+			if(usernameError) return;
+			if(nameError) return;
+
 			await axios.patch('/api/edit', {
 				name,
 				username,
@@ -53,13 +60,21 @@ const EditModal = () => {
 			// this calls are hook to fetch the updated data
 			mutateFetchedUser();
 
-			toast.success('Update Succesful!');
+			toast.success('Update Succesful!', {
+				id: 'success',
+				style: { background: '#16a34a', color: 'white', fontSize: 'small'},
+			});
 			editModal.onClose();
 		} catch (error: any) {
 			if (error.response.status === 413) {
-				toast.error('Image is too large. Upload an image under 2mbs in size.');
+				toast.error('Image is too large. Upload an image under 2mbs in size.', {
+					id: 'image-size',
+					style: { background: 'red', color: 'white', fontSize: 'small'},
+				});
 			} else {
-				toast.error('Something went wrong.');
+				toast.error('Something went wrong.', {
+					style: { background: 'red', color: 'white', fontSize: 'small'},
+				});
 			}
 		} finally {
 			setIsLoading(false);

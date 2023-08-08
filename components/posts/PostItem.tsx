@@ -49,6 +49,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data = {} }) => {
 			toast.success('Your post was deleted.', {
 				duration: 3000,
 				position: 'bottom-center',
+				style: { background: '#16a34a', color: 'white', fontSize: 'small'},
 			});
 
 			// using .asPath.includes() allows us

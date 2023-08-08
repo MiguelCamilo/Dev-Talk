@@ -3,24 +3,25 @@ import { useRouter } from 'next/router';
 import { FaEdit } from 'react-icons/fa';
 
 import useLoginModal from '@/hooks/useLoginModal';
+import usePostModal from '@/hooks/usePostModal';
 import useCurrentUser from '@/hooks/useCurrentUser';
-
-import Modal from '../Modal';
 
 const SidebarPostButton = () => {
 	const router = useRouter()
 	
 	const { data: currentUser } = useCurrentUser();
 	const loginModal = useLoginModal();
+	const postModal = usePostModal()
 
-	//! TODO: ADD FORM POST MODAL 
+
 	const onClick = useCallback(() => {
 		if(!currentUser) {
 			return loginModal.onOpen();
 		}
+		
+		postModal.onOpen()
+	}, [loginModal, currentUser, postModal]);
 
-		router.push('/')
-	}, [loginModal, currentUser, router]);
 
 	return (
 		<div onClick={onClick}>

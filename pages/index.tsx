@@ -8,8 +8,8 @@ export default function Home() {
     <>
       {/* head tag */}
       <Head>
-      <title>DevLink</title>
-      <meta name='description' content='Connecting the Tech Community with DevLink 🤝' />
+        <title>DevLink</title>
+        <meta name='description' content='Connecting the Tech Community with DevLink 🤝' />
       </Head>
       <Header label='Home' />
       <Form placeholder="What's on your mind?" />
