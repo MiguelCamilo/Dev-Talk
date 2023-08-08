@@ -29,3 +29,32 @@ body {
 ::-webkit-scrollbar-thumb:hover {
     @apply bg-green-600 transition duration-200
 }
+
+:where(.css-dev-only-do-not-override-19gw05y).ant-pagination .ant-pagination-item-active {
+    font-weight: 600;
+    background-color: #ffffff;
+    border-color: #16a34a;
+}
+
+:hover:where(.css-dev-only-do-not-override-19gw05y).ant-pagination .ant-pagination-item-active {
+    font-weight: 600;
+    background-color: #ffffff;
+    border-color: #16a34a;
+}
+
+:where(.css-dev-only-do-not-override-19gw05y).ant-pagination .ant-pagination-item-active a {
+    color: #16a34a;
+}
+
+:hover:where(.css-dev-only-do-not-override-19gw05y).ant-pagination .ant-pagination-item-active a {
+    color: #16a34a;
+}
+
+/* next button & prev button */
+:where(.css-dev-only-do-not-override-19gw05y).ant-pagination .ant-pagination-next .ant-pagination-item-link {
+    color: #16a34a;
+}
+
+:where(.css-dev-only-do-not-override-19gw05y).ant-pagination .ant-pagination-prev .ant-pagination-item-link {
+    color: #16a34a;
+}

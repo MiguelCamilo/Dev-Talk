@@ -1,6 +1,6 @@
+import { useCallback, useState } from 'react';
 import { SignInResponse, signIn } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
-import { useCallback, useState } from 'react';
 
 import Input from '../Input';
 import Modal from '../Modal';
@@ -31,38 +31,31 @@ const LoginModal = () => {
 					});
 				}
 
-				const passwordError = (validatePassword(password))
-				if(passwordError) return
+				const passwordError = validatePassword(password);
+				if (passwordError) return;
 
-				try {
-					// type for nextauth signIn
-					const result: SignInResponse | undefined = await signIn(
-						'credentials',
-						{
-							redirect: false,
-							email,
-							password,
-						},
-					);
+				// type for nextauth signIn
+				const result: SignInResponse | undefined = await signIn('credentials', {
+					redirect: false,
+					email,
+					password,
+				});
 
-					if (result?.status === 401) {
-						toast.error('The email/password you entered is incorrect', {
-							id: 'invalid-credentials',
-							style: { background: 'red', color: 'white', fontSize: 'small' },
-						});
-						return
-					}
-
-					toast.success('Succesfully loged in!', { 
-						id: 'login',
-						style: { background: '#16a34a', color: 'white', fontSize: 'small' },
+				if (result?.status === 401) {
+					toast.error('The email/password you entered is incorrect', {
+						id: 'invalid-credentials',
+						style: { background: 'red', color: 'white', fontSize: 'small' },
 					});
-					loginModal.onClose();
-					return result;
-					
-				} catch (error) {
-					toast.error('Inavalid Credentials');
+					return;
 				}
+
+				toast.success('Succesfully loged in!', {
+					id: 'login',
+					style: { background: '#16a34a', color: 'white', fontSize: 'small' },
+				});
+
+				loginModal.onClose();
+				
 			} catch (error) {
 				console.log(error);
 			} finally {
