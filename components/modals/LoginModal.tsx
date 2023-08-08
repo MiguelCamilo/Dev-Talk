@@ -31,7 +31,8 @@ const LoginModal = () => {
 					});
 				}
 
-				if (validatePassword(password)) return;
+				const passwordError = (validatePassword(password))
+				if(passwordError) return
 
 				try {
 					// type for nextauth signIn
@@ -49,6 +50,7 @@ const LoginModal = () => {
 							id: 'invalid-credentials',
 							style: { background: 'red', color: 'white', fontSize: 'small' },
 						});
+						return
 					}
 
 					toast.success('Succesfully loged in!', { 
