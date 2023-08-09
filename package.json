@@ -22,8 +22,10 @@
     "date-fns": "^2.30.0",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.10",
+    "mailgen": "^2.0.27",
     "next": "13.4.10",
     "next-auth": "^4.22.3",
+    "nodemailer": "^6.9.4",
     "postcss": "8.4.26",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -38,6 +40,8 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
+    "@types/mailgen": "^2.0.5",
+    "@types/nodemailer": "^6.4.9",
     "prettier": "^3.0.0",
     "prettier-plugin-tailwindcss": "^0.4.1",
     "prisma": "^5.0.0"

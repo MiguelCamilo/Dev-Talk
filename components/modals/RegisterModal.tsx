@@ -55,23 +55,23 @@ const RegisterModal = () => {
 					username,
 				});
 
-				//! SEND REGISTER EMAIL 
-
-				const result: SignInResponse | undefined = await signIn('credentials', {
+				signIn('credentials', {
 					email,
 					password,
 				});
 
-				if(result?.status === 201) {
-					await axios.post('/api/registration-email', {
-						username,
-						email
-					})
-				}
+				await axios.post('/api/registrationemail', {
+					username,
+					email,
+				});
 
 				registerModal.onClose();
-				toast.success('Account Created Succesfully!');
 				
+				toast.success('Account Created Succesfully!', {
+					id: 'account-created',
+					style: { background: '#16a34a', color: 'white', fontSize: 'small' },
+				});
+
 			} catch (error: any) {
 				toast.error(error.response.data.message, {
 					id: 'message',
