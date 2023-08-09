@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { signIn } from 'next-auth/react';
+import { SignInResponse, signIn } from 'next-auth/react';
 import { useCallback, useState } from 'react';
 
 import {
@@ -55,13 +55,23 @@ const RegisterModal = () => {
 					username,
 				});
 
-				toast.success('Account Created Succesfully!');
+				//! SEND REGISTER EMAIL 
 
-				signIn('credentials', {
+				const result: SignInResponse | undefined = await signIn('credentials', {
 					email,
 					password,
 				});
+
+				if(result?.status === 201) {
+					await axios.post('/api/registration-email', {
+						username,
+						email
+					})
+				}
+
 				registerModal.onClose();
+				toast.success('Account Created Succesfully!');
+				
 			} catch (error: any) {
 				toast.error(error.response.data.message, {
 					id: 'message',
@@ -96,14 +106,14 @@ const RegisterModal = () => {
 				/>
 				<Input
 					placeholder="Name"
-					type="text"
+					type="name"
 					value={name}
 					onChange={(e) => setName(e.target.value)}
 					disabled={isLoading}
 				/>
 				<Input
 					placeholder="Username"
-					type="text"
+					type="username"
 					value={username}
 					onChange={(e) => setUsername(e.target.value)}
 					disabled={isLoading}

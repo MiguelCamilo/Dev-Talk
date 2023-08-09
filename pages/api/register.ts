@@ -17,6 +17,22 @@ export default async function handler(
             return res.status(400).send({ message: 'Please fill out required fields.'})
         }
 
+        const existingUserEmail = await prisma.user.findUnique({
+            where: {
+                email: email
+            }
+        })
+
+        const existingUserName = await prisma.user.findUnique({
+            where: {
+                username: username
+            }
+        })
+
+        if(existingUserEmail || existingUserName){
+            res.status(403).send({ message: 'Email / Username is taken, try again.'})
+        }
+
         const hashedPassword = await bcrypt.hash(password, 12)
 
         // creates user and stores user data in the user const
