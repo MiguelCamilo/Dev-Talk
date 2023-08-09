@@ -18,9 +18,9 @@ const SidebarPostButton = () => {
 		if(!currentUser) {
 			return loginModal.onOpen();
 		}
-		
+		router.push('/')
 		postModal.onOpen()
-	}, [loginModal, currentUser, postModal]);
+	}, [loginModal, currentUser, postModal, router]);
 
 
 	return (

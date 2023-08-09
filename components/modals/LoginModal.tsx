@@ -4,15 +4,18 @@ import { toast } from 'react-hot-toast';
 
 import Input from '../Input';
 import Modal from '../Modal';
+import Button from '../Button';
 import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
-import Button from '../Button';
+import useCurrentUser from '@/hooks/useCurrentUser';
 
 import { validatePassword } from '@/libs/validate';
+import { PuffLoader } from 'react-spinners';
 
 const LoginModal = () => {
 	const registerModal = useRegisterModal();
 	const loginModal = useLoginModal();
+	const { data: currentUser } = useCurrentUser();
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -22,8 +25,6 @@ const LoginModal = () => {
 		async (event: any) => {
 			event.preventDefault();
 			try {
-				setIsLoading(true);
-
 				if (!email || !password) {
 					return toast.error('Please fill out required fields.', {
 						id: 'login',
@@ -49,17 +50,15 @@ const LoginModal = () => {
 					return;
 				}
 
-				toast.success('Succesfully loged in!', {
-					id: 'login',
-					style: { background: '#16a34a', color: 'white', fontSize: 'small' },
-				});
+				setIsLoading(true);
 
-				loginModal.onClose();
-				
+				setTimeout(() => {
+					setIsLoading(false);
+					loginModal.onClose();
+				}, 5.8 * 1000);
+
 			} catch (error) {
 				console.log(error);
-			} finally {
-				setIsLoading(false);
 			}
 		},
 		[loginModal, email, password],
@@ -76,62 +75,77 @@ const LoginModal = () => {
 	}, [registerModal, loginModal, isLoading]);
 
 	const bodyContent = (
-		<form onSubmit={onSubmit}>
-			<div className="flex flex-col gap-4">
-				<Input
-					placeholder="Email"
-					type="email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					disabled={isLoading}
-				/>
-				<Input
-					placeholder="Password"
-					type="password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					disabled={isLoading}
-				/>
-			</div>
+		<>
+			{isLoading ? (
+				<div className="flex flex-col items-center justify-center">
+					<PuffLoader color="green" />
+					<p className="text-2xl font-bold text-neutral-600">Loading...</p>
+				</div>
+			) : (
+				<form onSubmit={onSubmit}>
+					<div className="flex flex-col gap-4">
+						<Input
+							placeholder="Email"
+							type="email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							disabled={isLoading}
+						/>
+						<Input
+							placeholder="Password"
+							type="password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							disabled={isLoading}
+						/>
+					</div>
 
-			<div className="mt-5">
-				<Button
-					type="submit"
-					onClick={onSubmit}
-					disabled={isLoading}
-					label="Login"
-					secondary
-					fullWidth
-					large
-				/>
-			</div>
-		</form>
+					<div className="mt-5">
+						<Button
+							type="submit"
+							onClick={onSubmit}
+							disabled={isLoading}
+							label="Login"
+							secondary
+							fullWidth
+							large
+						/>
+					</div>
+				</form>
+			)}
+		</>
 	);
 
 	const footerContent = (
-		<div className="mt-4 text-center text-neutral-400">
-			<p>
-				First time using DevLink ?
-				<button
-					onClick={onToggle}
-					className="ml-2 cursor-pointer text-white hover:text-green-400"
-				>
-					Create an account
-				</button>
-			</p>
-		</div>
+		<>
+			{isLoading ? null : (
+				<div className="mt-4 text-center text-neutral-400">
+					<p>
+						First time using DevLink ?
+						<button
+							onClick={onToggle}
+							className="ml-2 cursor-pointer text-white hover:text-green-400"
+						>
+							Create an account
+						</button>
+					</p>
+				</div>
+			)}
+		</>
 	);
 
 	return (
-		<Modal
-			title="Login"
-			body={bodyContent}
-			footer={footerContent}
-			disabled={isLoading}
-			isOpen={loginModal.isOpen}
-			onClose={loginModal.onClose}
-			onSubmit={() => {}}
-		/>
+		<>
+			<Modal
+				title={isLoading ? null : 'Login'}
+				body={bodyContent}
+				footer={footerContent}
+				disabled={isLoading}
+				isOpen={loginModal.isOpen}
+				onClose={loginModal.onClose}
+				onSubmit={() => {}}
+			/>
+		</>
 	);
 };
 

@@ -28,7 +28,7 @@ const Form: React.FC<FormProps> = ({
 }) => {
 	const registerModal = useRegisterModal();
 	const loginModal = useLoginModal();
-	const postModal = usePostModal()
+	const postModal = usePostModal();
 
 	const { data: currentUser } = useCurrentUser();
 	const { mutate: mutatePosts } = usePosts();
@@ -50,16 +50,14 @@ const Form: React.FC<FormProps> = ({
 				duration: 4000,
 				position: 'bottom-center',
 				id: 'post-success',
-				style: { background: '#16a34a', color: 'white', fontSize: 'small'},
+				style: { background: '#16a34a', color: 'white', fontSize: 'small' },
 			});
 
-			if(postModal.isOpen){
-				postModal.onClose()
-			}
+			postModal.onClose();
 
 			setBody('');
-			mutatePosts();
 			mutatePost();
+			mutatePosts();
 		} catch (error) {
 			toast.error('Something went wrong.');
 		} finally {
@@ -68,7 +66,11 @@ const Form: React.FC<FormProps> = ({
 	}, [body, mutatePosts, mutatePost, isComment, postId, postModal]);
 
 	return (
-		<div className={`${ isModal ? "px-5 py-2" : "border-b-[1px] border-neutral-800 px-5 py-2"}`}>
+		<div
+			className={`${
+				isModal ? 'px-5 py-2' : 'border-b-[1px] border-neutral-800 px-5 py-2'
+			}`}
+		>
 			{currentUser ? (
 				<div className="flex flex-row gap-4">
 					<div>
