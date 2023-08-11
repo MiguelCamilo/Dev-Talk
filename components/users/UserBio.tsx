@@ -7,10 +7,13 @@ import useFollowersModal from '@/hooks/useFollowersModal';
 import useFollowingModal from '@/hooks/useFollowingModal';
 
 import Button from '../Button';
+import DropdownMenu from '../DropdownMenu';
 
 import { format } from 'date-fns';
 import { useMemo } from 'react';
-import { BiCalendar } from 'react-icons/bi';
+import { signOut } from 'next-auth/react';
+import { BiCalendar, BiLogOut } from 'react-icons/bi';
+import { AiOutlineEllipsis } from 'react-icons/ai';
 
 interface UserBioProps {
 	userId: string;
@@ -36,7 +39,27 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
 	}, [fetchedUser?.createdAt]);
 
 	return (
-		<div className="border-b-[1px] border-neutral-800 pb-4">
+		<div className="relative border-b-[1px] border-neutral-800 pb-4">
+			{/* mobile logout button */}
+			{currentUser && (
+				// <button onClick={() => signOut()} className='flex flex-row-reverse absolute -top-[14rem] right-5 lg:hidden gap-1'>
+				// 	{/* <p className='text-xs text-white mt-1'>Log out</p> */}
+				// 	<BiLogOut color='red' size={28} />
+				// </button>
+
+				<div className="absolute -top-[14rem] right-5 flex flex-row-reverse gap-1 lg:hidden">
+					<DropdownMenu
+						label="Log out"
+						onClick={signOut}
+						buttonIcon={BiLogOut}
+						dropDownIcon={AiOutlineEllipsis}
+						dropDownClassName="text-white hover:text-neutral-300"
+						className="text-red-600"
+						btnClassName="flex flex-row gap-1 text-red-600"
+					/>
+				</div>
+			)}
+
 			<div className="flex justify-end p-2">
 				{currentUser?.id === userId ? (
 					<Button secondary label="Edit" onClick={editModal.onOpen} />

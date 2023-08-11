@@ -49,7 +49,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data = {} }) => {
 			toast.success('Your post was deleted.', {
 				duration: 3000,
 				position: 'bottom-center',
-				style: { background: '#16a34a', color: 'white', fontSize: 'small'},
+				style: { background: '#16a34a', color: 'white', fontSize: 'small' },
 			});
 
 			// using .asPath.includes() allows us
@@ -108,7 +108,7 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data = {} }) => {
 	return (
 		<div
 			onClick={goToPost}
-			className="cursor-pointer border-l border-green-600 p-5 transition hover:bg-neutral-800"
+			className="cursor-pointer border-l border-green-600 p-4 transition hover:bg-neutral-800"
 		>
 			{/* only render the delete if user created post */}
 			{currentUser?.id === data?.userId && (
@@ -141,7 +141,11 @@ const PostItem: React.FC<PostItemProps> = ({ userId, data = {} }) => {
 						<span className="text-xs text-neutral-500">{createdAt} ago</span>
 					</div>
 
-					<div className="mt-1 text-sm text-white">{data.body}</div>
+					<div className="max-w-2xl">
+						<p className="mt-1 whitespace-pre-line break-all text-sm text-white">
+							{data.body}
+						</p>
+					</div>
 
 					<div className="mt-3 flex flex-row items-center gap-10">
 						<div className="flex cursor-pointer flex-row items-center gap-1 text-neutral-500 transition hover:text-green-400">

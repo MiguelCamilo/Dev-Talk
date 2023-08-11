@@ -45,8 +45,8 @@ const CommentItem: React.FC<CommentItemProps> = ({ data }) => {
 						</span>
 						<span className="text-sm text-neutral-500">{createdAt}</span>
 					</div>
-					<div className="flex flex-col">
-						<div className="mt-1 text-sm text-white">{data?.body}</div>
+					<div className="max-w-2xl p-4">
+						<p className="mt-1 break-all text-sm text-white whitespace-pre-line">{data?.body}</p>
 					</div>
 				</div>
 			</div>

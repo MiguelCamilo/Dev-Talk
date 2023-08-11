@@ -80,6 +80,8 @@ const Form: React.FC<FormProps> = ({
 					<div className="relative w-full">
 						<textarea
 							disabled={isLoading}
+							rows={4}
+							cols={33}
 							onChange={(e) => setBody(e.target.value)}
 							value={body}
 							className={`${
@@ -89,7 +91,7 @@ const Form: React.FC<FormProps> = ({
 							}`}
 							placeholder={placeholder}
 						/>
-						<p className="absolute right-0 top-10 text-neutral-500">
+						<p className="absolute right-0 -top-1.5 text-neutral-500">
 							{body.length}
 						</p>
 						<hr className="h-[1px] border-neutral-800 opacity-100 transition" />
