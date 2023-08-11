@@ -27,8 +27,8 @@ export default async function handler(
 			port: 587,
 			secure: false,
 			auth: {
-				user: process.env.NEXT_PUBLIC_USER_EMAIL,
-				pass: process.env.NEXT_PUBLIC_EMAIL_PASSWORD,
+				user: process.env.NEXT_PUBLIC_EMAIL,
+				pass: process.env.NEXT_PUBLIC_EMAIL_TOKEN,
 			},
 		};
 
@@ -55,7 +55,7 @@ export default async function handler(
 		let mail = MailGenerator.generate(response);
 
 		let message = {
-			from: 'DevLink Co',
+			from: process.env.NEXT_PUBLIC_USER_EMAIL,
 			to: email,
 			subject: subject || 'Welcome to DevLink!',
 			html: mail,

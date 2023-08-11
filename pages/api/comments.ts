@@ -20,6 +20,8 @@ export default async function handler(
 			throw new Error('Invalid ID');
 		}
 
+		//! TODO: CREATE A DELETE OPTIONS 
+
 		const comment = await prisma.comment.create({
 			data: {
 				body,
