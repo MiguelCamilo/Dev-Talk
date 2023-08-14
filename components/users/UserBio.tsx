@@ -13,7 +13,7 @@ import { format } from 'date-fns';
 import { useMemo } from 'react';
 import { signOut } from 'next-auth/react';
 import { BiCalendar, BiLogOut } from 'react-icons/bi';
-import { AiOutlineEllipsis } from 'react-icons/ai';
+import { BsFillGearFill } from 'react-icons/bs';
 
 interface UserBioProps {
 	userId: string;
@@ -45,12 +45,13 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
 				<div className="absolute -top-[14rem] right-5 z-40 flex flex-row-reverse gap-1 lg:hidden">
 					<DropdownMenu
 						label="Log out"
+						iconSize={20}
 						onClick={signOut}
 						buttonIcon={BiLogOut}
-						dropDownIcon={AiOutlineEllipsis}
-						dropDownClassName="text-white hover:text-neutral-300"
+						dropDownIcon={BsFillGearFill}
+						dropDownClassName="text-white hover:text-neutral-300 mt-1"
 						className="text-red-600"
-						btnClassName="flex flex-row gap-1 text-red-600"
+						btnClassName="flex flex-row gap-1 text-red-600 text-md"
 					/>
 				</div>
 			)}
