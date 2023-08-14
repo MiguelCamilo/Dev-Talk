@@ -4,11 +4,12 @@ import { useCallback } from 'react';
 import { BiArrowBack } from 'react-icons/bi';
 
 interface HeaderProps {
+	noSticky?: boolean
 	label: string;
 	showBackArrow?: boolean;
 }
 
-const Header: React.FC<HeaderProps> = ({ label, showBackArrow }) => {
+const Header: React.FC<HeaderProps> = ({ label, showBackArrow, noSticky }) => {
 	const router = useRouter();
 
 	const handleBack = useCallback(() => {
@@ -16,7 +17,13 @@ const Header: React.FC<HeaderProps> = ({ label, showBackArrow }) => {
 	}, [router]);
 
 	return (
-		<div className="border-b-[1px] border-neutral-800 p-5">
+		<div
+			className={`${
+				noSticky
+					? 'border-b-[1px] border-neutral-800 bg-[#16181c] p-5'
+					: 'sticky left-0 top-0 z-40 border-b-[1px] border-neutral-800 bg-[#16181c] p-5'
+			}`}
+		>
 			<div className="flex flex-row items-center gap-2">
 				{showBackArrow && (
 					<BiArrowBack
@@ -33,4 +40,3 @@ const Header: React.FC<HeaderProps> = ({ label, showBackArrow }) => {
 };
 
 export default Header;
-

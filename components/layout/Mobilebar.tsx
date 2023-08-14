@@ -30,7 +30,7 @@ const MobileBar = () => {
 	];
 
 	return (
-		<div className="sticky bottom-0 left-0 z-50 h-16 w-full border-t border-green-800 bg-[#16181c] lg:hidden">
+		<div className="sticky bottom-0 left-0 z-40 h-16 w-full border-t border-green-800 bg-[#16181c] lg:hidden">
 			<div className="flex flex-row justify-between mx-6">
             {items.map((item) => (
 						<SidebarItem

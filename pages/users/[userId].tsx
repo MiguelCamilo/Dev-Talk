@@ -10,33 +10,33 @@ import { ClipLoader } from 'react-spinners';
 import PostFeed from '@/components/posts/PostFeed';
 
 const UserView = () => {
-    const router = useRouter()
-    // userId is coming from the query when you click
-    // on the user profile the userId is passed to the url
-    const { userId } = router.query
+	const router = useRouter();
+	// userId is coming from the query when you click
+	// on the user profile the userId is passed to the url
+	const { userId } = router.query;
 
-    const { data: fetchedUser, isLoading } = useUser(userId as string)
+	const { data: fetchedUser, isLoading } = useUser(userId as string);
 
-    // if loading or no provided fetched user
-    if(isLoading || !fetchedUser) {
-        return (
-            <div 
-                className='flex justify-center items-center h-full'>
-                    <ClipLoader 
-                        color='lightgreen'
-                        size={80}
-                    />
-            </div>
-        )
-    }
+	// if loading or no provided fetched user
+	if (isLoading || !fetchedUser) {
+		return (
+			<div className="flex h-full items-center justify-center">
+				<ClipLoader color="lightgreen" size={80} />
+			</div>
+		);
+	}
 
 	return (
 		<>
-			<Header showBackArrow label={fetchedUser?.name || 'User Profile'} />
-            <UserHero userId={userId as string} />
-            <UserBio userId={userId as string} />
-            {/* <Form placeholder="What's on your mind?" /> */}
-            <PostFeed userId={userId as string} />
+			<Header
+				noSticky
+				showBackArrow
+				label={fetchedUser?.name || 'User Profile'}
+			/>
+			<UserHero userId={userId as string} />
+			<UserBio userId={userId as string} />
+			{/* <Form placeholder="What's on your mind?" /> */}
+			<PostFeed userId={userId as string} />
 		</>
 	);
 };

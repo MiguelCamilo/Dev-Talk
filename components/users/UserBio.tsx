@@ -42,12 +42,7 @@ const UserBio: React.FC<UserBioProps> = ({ userId }) => {
 		<div className="relative border-b-[1px] border-neutral-800 pb-4">
 			{/* mobile logout button */}
 			{currentUser && (
-				// <button onClick={() => signOut()} className='flex flex-row-reverse absolute -top-[14rem] right-5 lg:hidden gap-1'>
-				// 	{/* <p className='text-xs text-white mt-1'>Log out</p> */}
-				// 	<BiLogOut color='red' size={28} />
-				// </button>
-
-				<div className="absolute -top-[14rem] right-5 flex flex-row-reverse gap-1 lg:hidden">
+				<div className="absolute -top-[14rem] right-5 z-40 flex flex-row-reverse gap-1 lg:hidden">
 					<DropdownMenu
 						label="Log out"
 						onClick={signOut}
