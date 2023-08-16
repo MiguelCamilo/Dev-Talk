@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-import { SignInResponse, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import { useCallback, useState } from 'react';
 
 import {
@@ -15,6 +15,9 @@ import Button from '../Button';
 
 import useLoginModal from '@/hooks/useLoginModal';
 import useRegisterModal from '@/hooks/useRegisterModal';
+
+import { FcGoogle } from 'react-icons/fc';
+import { AiFillGithub } from 'react-icons/ai';
 
 const RegisterModal = () => {
 	const loginModal = useLoginModal();
@@ -66,12 +69,11 @@ const RegisterModal = () => {
 				});
 
 				registerModal.onClose();
-				
+
 				toast.success('Account Created Succesfully!', {
 					id: 'account-created',
 					style: { background: '#16a34a', color: 'white', fontSize: 'small' },
 				});
-
 			} catch (error: any) {
 				toast.error(error.response.data.message, {
 					id: 'message',
@@ -138,20 +140,43 @@ const RegisterModal = () => {
 					large
 				/>
 			</div>
+			<div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-600 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-600">
+				<p className="mx-4 mb-0 text-center font-semibold text-neutral-600">
+					or
+				</p>
+			</div>
 		</form>
 	);
 
 	const footerContent = (
-		<div className="mt-4 text-center text-neutral-400">
-			<p>
-				Already have an account?
-				<button
-					onClick={onToggle}
-					className="ml-2 cursor-pointer text-white hover:text-green-400"
-				>
-					Login
-				</button>
-			</p>
+		<div className="mt-3 flex flex-col items-center gap-4">
+			<button
+				onClick={() => signIn('google')}
+				className="mb-2 mr-2 inline-flex w-full justify-center rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-center  text-sm font-medium text-gray-900 hover:bg-gray-100 focus:ring-4 focus:ring-[#24292F]/50"
+			>
+				<FcGoogle size={17} className="-ml-1 mr-2 h-5 w-6" />
+				Continue with Google
+			</button>
+
+			<button
+				onClick={() => signIn('github')}
+				type="button"
+				className="mb-2 mr-2 inline-flex w-full justify-center rounded-lg bg-[#24292F] px-5 py-2.5  text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:ring-4 focus:ring-[#24292F]/50"
+			>
+				<AiFillGithub size={17} className="-ml-1 mr-2 h-5 w-6" />
+				Continue with Github
+			</button>
+			<div className="mt-4 text-center text-neutral-400">
+				<p>
+					Already have an account?
+					<button
+						onClick={onToggle}
+						className="ml-2 cursor-pointer text-white hover:text-green-400"
+					>
+						Login
+					</button>
+				</p>
+			</div>
 		</div>
 	);
 

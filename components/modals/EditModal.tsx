@@ -65,8 +65,9 @@ const EditModal = () => {
 				style: { background: '#16a34a', color: 'white', fontSize: 'small'},
 			});
 			editModal.onClose();
+			
 		} catch (error: any) {
-			if (error.response.status === 413) {
+			if (error?.response?.status === 413) {
 				toast.error('Image is too large. Upload an image under 2mbs in size.', {
 					id: 'image-size',
 					style: { background: 'red', color: 'white', fontSize: 'small'},

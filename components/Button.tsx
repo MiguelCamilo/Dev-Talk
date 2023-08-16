@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
 	onClick,
 	disabled,
 	outline,
-	type
+	type,
 }) => {
 	return (
 		<button
@@ -46,7 +46,7 @@ const Button: React.FC<ButtonProps> = ({
             ${outline ? 'border-white' : ''}
             ${outline ? 'text-white' : ''}
         `}
-		>
+		>	
 			{label}
 		</button>
 	);

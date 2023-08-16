@@ -32,9 +32,32 @@ model User {
   followerIds      String[]  @db.ObjectId
   hasNotification Boolean?
 
+  accounts     Account[]
   posts         Post[]
   comments      Comment[]
   notifications Notification[]
+}
+
+// this model is for our OAuth sign up ex: Google && Github
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
+
+  // @relation decorator is used to create a relationship between two models in a database schema, and can be used to specify how the data should be structured and manipulated.
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // makes a unique combination 
+  @@unique([provider, providerAccountId])
 }
 
 // user User @relation is creating a relation with the user model with the posts Post[]

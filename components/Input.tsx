@@ -18,7 +18,7 @@ const Input: React.FC<InputProps> = ({
 			required
 			disabled={disabled}
 			onChange={onChange}
-			value={value}
+			value={value || ''}
 			placeholder={placeholder}
 			type={type}
 			className="w-full rounded-md border-2 border-neutral-800 bg-black p-4 text-lg text-white outline-none transition focus:border-2 focus:border-green-500 disabled:cursor-not-allowed disabled:bg-neutral-900 disabled:opacity-70"
